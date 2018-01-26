@@ -18,20 +18,20 @@ public abstract class TestDatabase extends RoomDatabase {
 
     public abstract UserDao userDao();
 
-    public static TestDatabase getInMemoryDatabase(Context context) {
-        if (INSTANCE == null) {
-            INSTANCE =
-                    Room.inMemoryDatabaseBuilder(context.getApplicationContext(), TestDatabase.class)
-                            // To simplify the codelab, allow queries on the main thread.
-                            // Don't do this on a real app! See PersistenceBasicSample for an example.
-                            .allowMainThreadQueries()
-                            .build();
-        }
-        return INSTANCE;
-    }
-
-    public static void destroyInstance() {
-        INSTANCE = null;
-    }
+//    public static TestDatabase getInMemoryDatabase(Context context) {
+//        if (INSTANCE == null) {
+//            INSTANCE =
+//                    Room.inMemoryDatabaseBuilder(context.getApplicationContext(), TestDatabase.class)
+//                            // To simplify the codelab, allow queries on the main thread.
+//                            // Don't do this on a real app! See PersistenceBasicSample for an example.
+////                            .allowMainThreadQueries()
+//                            .build();
+//        }
+//        return INSTANCE;
+//    }
+//
+//    public static void destroyInstance() {
+//        INSTANCE = null;
+//    }
 }
 

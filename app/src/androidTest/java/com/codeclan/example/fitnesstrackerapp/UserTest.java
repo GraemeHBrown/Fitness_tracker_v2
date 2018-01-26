@@ -6,7 +6,6 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 
-import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.db.TestDatabase;
 import com.codeclan.example.fitnesstrackerapp.db.UserDao;
 import com.codeclan.example.fitnesstrackerapp.user.User;
@@ -72,11 +71,4 @@ public class UserTest {
 }
 
 
-//    @Test
-//    public void useAppContext() throws Exception {
-//        // Context of the app under test.
-//        Context appContext = InstrumentationRegistry.getTargetContext();
-//
-//        assertEquals("com.codeclan.example.fitnesstrackerapp", appContext.getPackageName());
-//    }
 
