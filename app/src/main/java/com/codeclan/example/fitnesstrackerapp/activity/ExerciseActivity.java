@@ -1,29 +1,27 @@
-package com.codeclan.example.fitnesstrackerapp;
+package com.codeclan.example.fitnesstrackerapp.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.codeclan.example.fitnesstrackerapp.R;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.db.utils.DatabaseInitializer;
-import com.codeclan.example.fitnesstrackerapp.user.User;
 
 import java.util.List;
 import java.util.Locale;
 
-
-public class MainActivity extends AppCompatActivity {
+public class ExerciseActivity extends AppCompatActivity {
 
     private AppDatabase db;
-
-    private TextView usersTextView;
+    private TextView exerciseTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_exercise);
 
-        usersTextView = findViewById(R.id.userView);
+        exerciseTextView = findViewById(R.id.exercise_activity_view);
 
         db = AppDatabase.getInMemoryDatabase(getApplicationContext());
 
@@ -39,11 +37,11 @@ public class MainActivity extends AppCompatActivity {
     private void fetchData() {
         // Note: this kind of logic should not be in an activity.
         StringBuilder sb = new StringBuilder();
-        List<User> users = db.userDao().getAll();
-        for (User user : users) {
+        List<Activity> activities = db.activityDao().getAll();
+        for (Activity activity : activities) {
             sb.append(String.format(Locale.UK,
-                    "%s, %s, (ID:%d), %s \n", user.getFirstName(), user.getLastName(), user.getId(),user.getAge()));
+                    "%s, %s, (ID:%d) \n", activity.getActivityName(), activity.getActivityType(), activity.getId()));
         }
-        usersTextView.setText(sb);
+        exerciseTextView.setText(sb);
     }
 }

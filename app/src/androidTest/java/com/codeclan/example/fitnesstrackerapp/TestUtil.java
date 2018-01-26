@@ -1,5 +1,6 @@
 package com.codeclan.example.fitnesstrackerapp;
 
+import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.db.TestDatabase;
 import com.codeclan.example.fitnesstrackerapp.user.User;
@@ -17,5 +18,14 @@ class TestUtil {
         user.setAge(age);
         db.userDao().insertUser(user);
         return user;
+    }
+
+    public static Activity addActivity(final TestDatabase db, final String activityName,
+                               final String activityType) {
+        Activity activity = new Activity();
+        activity.setActivityName(activityName);
+        activity.setActivityType(activityType);
+        db.activityDao().insertActivity(activity);
+        return activity;
     }
 }

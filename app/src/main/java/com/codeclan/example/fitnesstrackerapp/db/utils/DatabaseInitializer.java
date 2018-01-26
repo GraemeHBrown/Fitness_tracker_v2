@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.user.User;
 
@@ -25,7 +26,9 @@ public class DatabaseInitializer {
 
     private static void populateWithTestData(AppDatabase db) {
         db.userDao().deleteAll();
-        User user1 = addUser(db, "Fred", "Brookes", 54);
+        addUser(db, "Fred", "Brookes", 54);
+        addUser(db, "Ted", "Highes", 104);
+        addActivity(db, "Cycling", "Mtn biking");
 
     }
 
@@ -37,6 +40,15 @@ public class DatabaseInitializer {
         user.setAge(age);
         db.userDao().insertUser(user);
         return user;
+    }
+
+    private static Activity addActivity(final AppDatabase db, final String name,
+                                final String type) {
+        Activity activity = new Activity();
+        activity.setActivityName(name);
+        activity.setActivityType(type);
+        db.activityDao().insertActivity(activity);
+        return activity;
     }
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
