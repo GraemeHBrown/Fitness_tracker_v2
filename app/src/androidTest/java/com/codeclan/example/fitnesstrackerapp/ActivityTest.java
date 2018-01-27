@@ -8,8 +8,6 @@ import android.support.test.runner.AndroidJUnit4;
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.db.ActivityDao;
 import com.codeclan.example.fitnesstrackerapp.db.TestDatabase;
-import com.codeclan.example.fitnesstrackerapp.db.UserDao;
-import com.codeclan.example.fitnesstrackerapp.user.User;
 
 import org.junit.After;
 import org.junit.Before;
@@ -47,5 +45,13 @@ public class ActivityTest {
         Activity activity = TestUtil.addActivity(testDb, "Cycling", "Mtn biking");
         Activity foundActivity = testActivityDao.findByActivityName("Cycling");
         assertEquals(activity.getActivityName(), foundActivity.getActivityName());
+    }
+
+    @Test
+    public void activityHasType(){
+        testActivityDao.deleteAll();
+        Activity activity = TestUtil.addActivity(testDb, "Cycling", "Mtn biking");
+        Activity foundActivity = testActivityDao.findByActivityName("Cycling");
+        assertEquals(activity.getActivityType(), foundActivity.getActivityType());
     }
 }

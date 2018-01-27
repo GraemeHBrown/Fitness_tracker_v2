@@ -6,19 +6,21 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
+import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
 import com.codeclan.example.fitnesstrackerapp.user.User;
 
 /**
  * Created by graemebrown on 26/01/2018.
  */
 
-@Database(entities = {User.class, Activity.class}, version = 1)
+@Database(entities = {User.class, Activity.class, Equipment.class}, version = 1)
 public abstract class TestDatabase extends RoomDatabase {
 
     private static TestDatabase INSTANCE;
 
     public abstract UserDao userDao();
     public abstract ActivityDao activityDao();
+    public abstract EquipmentDao equipmentDao();
 
 //    public static TestDatabase getInMemoryDatabase(Context context) {
 //        if (INSTANCE == null) {

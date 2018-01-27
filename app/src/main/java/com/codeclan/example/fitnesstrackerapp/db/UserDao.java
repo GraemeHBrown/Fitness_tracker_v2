@@ -18,6 +18,9 @@ public interface UserDao {
     @Query("SELECT * FROM user")
     List<User> getAll();
 
+    @Query("select * from user where id = :id")
+    User findUserById(int id);
+
     @Query("SELECT * FROM user WHERE id IN (:userIds)")
     List<User> loadAllByIds(int[] userIds);
 
@@ -26,7 +29,7 @@ public interface UserDao {
     User findByName(String first, String last);
 
     @Insert
-    void insertUser(User user);
+    Long insertUser(User user);
 
     @Delete
     void delete(User user);

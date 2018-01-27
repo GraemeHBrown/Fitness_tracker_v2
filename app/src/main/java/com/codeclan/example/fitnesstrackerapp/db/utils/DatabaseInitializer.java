@@ -6,7 +6,12 @@ import android.util.Log;
 
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
+import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
 import com.codeclan.example.fitnesstrackerapp.user.User;
+import com.codeclan.example.fitnesstrackerapp.useractivity.UserExercise;
+
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by graemebrown on 26/01/2018.
@@ -24,12 +29,32 @@ public class DatabaseInitializer {
         populateWithTestData(db);
     }
 
-    private static void populateWithTestData(AppDatabase db) {
-        db.userDao().deleteAll();
-        addUser(db, "Fred", "Brookes", 54);
-        addUser(db, "Ted", "Highes", 104);
-        addActivity(db, "Cycling", "Mtn biking");
+    private static UserExercise addUserExercise(final AppDatabase db, final User user, final Activity activity,
+                                                final Date startDate, final Date startTime, final Long duration,
+                                                final Equipment equipment, final String description) {
+        UserExercise exercise = new UserExercise();
+        exercise.setUserId(user.getId());
+        exercise.setActivityId(activity.getId());
+        exercise.setStartDate(startDate);
+        exercise.setStartTime(startTime);
+        exercise.setDuration(duration);
+        exercise.setEquipmentId(equipment.getId());
+        exercise.setDescription(description);
+        db.userExerciseDao().insertUserExercise(exercise);
+        return exercise;
+    }
 
+    private static Equipment addEquipment(final AppDatabase db, final String equipmentMake,
+                                          final String equipmentType, final String equipmentModel,
+                                          final User user) {
+        Equipment equipment = new Equipment();
+        equipment.setEquipmentMake(equipmentMake);
+        equipment.setEquipmentType(equipmentType);
+        equipment.setEquipmentModel(equipmentModel);
+        equipment.setUserId(user.getId());
+        Long rowId = db.equipmentDao().insertEquipment(equipment);
+        equipment.setId(rowId.intValue());
+        return equipment;
     }
 
     private static User addUser(final AppDatabase db, final String name,
@@ -38,18 +63,40 @@ public class DatabaseInitializer {
         user.setFirstName(name);
         user.setLastName(lastName);
         user.setAge(age);
-        db.userDao().insertUser(user);
+        Long rowId = db.userDao().insertUser(user);
+        user.setId(rowId.intValue());
         return user;
     }
 
     private static Activity addActivity(final AppDatabase db, final String name,
-                                final String type) {
+                                        final String type) {
         Activity activity = new Activity();
         activity.setActivityName(name);
         activity.setActivityType(type);
-        db.activityDao().insertActivity(activity);
+        Long rowId = db.activityDao().insertActivity(activity);
+        activity.setId(rowId.intValue());
         return activity;
     }
+
+    private static void populateWithTestData(AppDatabase db) {
+        db.userExerciseDao().deleteAll();
+        db.equipmentDao().deleteAll();
+        db.activityDao().deleteAll();
+        db.userDao().deleteAll();
+        User user1 = addUser(db, "Lance", "Armstrong", 47);
+        Activity activity1 = addActivity(db, "Cycling", "Road biking");
+        Equipment equipment1 = addEquipment(db, "Giant", "Road bike", "TCR", user1);
+
+        Date startTime = getToday();
+
+        addUserExercise(db, user1, activity1, startTime, startTime, 2L, equipment1, "This is an exercise...");
+    }
+
+    private static Date getToday() {
+        Calendar calendar = Calendar.getInstance();
+        return calendar.getTime();
+    }
+
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 

@@ -25,7 +25,7 @@ public class ExerciseActivity extends AppCompatActivity {
 
         db = AppDatabase.getInMemoryDatabase(getApplicationContext());
 
-        populateDb();
+//        populateDb();
         fetchData();
     }
 

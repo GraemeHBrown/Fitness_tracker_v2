@@ -3,22 +3,28 @@ package com.codeclan.example.fitnesstrackerapp.db;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
+import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
 import com.codeclan.example.fitnesstrackerapp.user.User;
+import com.codeclan.example.fitnesstrackerapp.useractivity.UserExercise;
 
 /**
  * Created by graemebrown on 26/01/2018.
  */
 
-@Database(entities = {User.class, Activity.class}, version = 1)
+@Database(entities = {User.class, Activity.class, Equipment.class, UserExercise.class}, version = 1)
+@TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
 
     public abstract UserDao userDao();
     public abstract ActivityDao activityDao();
+    public abstract EquipmentDao equipmentDao();
+    public abstract UserExerciseDao userExerciseDao();
 
     public static AppDatabase getInMemoryDatabase(Context context) {
         if (INSTANCE == null) {

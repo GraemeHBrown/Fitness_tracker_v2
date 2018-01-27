@@ -6,7 +6,6 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
-import com.codeclan.example.fitnesstrackerapp.user.User;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ public interface ActivityDao {
     Activity findByActivityName(String activityName);
 
     @Insert
-    void insertActivity(Activity activity);
+    Long insertActivity(Activity activity);
 
     @Delete
     void delete(Activity activity);

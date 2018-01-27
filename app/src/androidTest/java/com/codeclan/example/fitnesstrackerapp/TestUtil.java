@@ -3,7 +3,10 @@ package com.codeclan.example.fitnesstrackerapp;
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.db.TestDatabase;
+import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
 import com.codeclan.example.fitnesstrackerapp.user.User;
+
+import junit.framework.Test;
 
 /**
  * Created by graemebrown on 26/01/2018.
@@ -16,7 +19,8 @@ class TestUtil {
         user.setFirstName(name);
         user.setLastName(lastName);
         user.setAge(age);
-        db.userDao().insertUser(user);
+        Long rowId = db.userDao().insertUser(user);
+        user.setId(rowId.intValue());
         return user;
     }
 
@@ -27,5 +31,17 @@ class TestUtil {
         activity.setActivityType(activityType);
         db.activityDao().insertActivity(activity);
         return activity;
+    }
+
+    public static Equipment addEquipment(final TestDatabase db, final String equipmentMake,
+                                          final String equipmentType, final String equipmentModel,
+                                          final User user) {
+        Equipment equipment = new Equipment();
+        equipment.setEquipmentMake(equipmentMake);
+        equipment.setEquipmentType(equipmentType);
+        equipment.setEquipmentModel(equipmentModel);
+        equipment.setUserId(user.getId());
+        db.equipmentDao().insertEquipment(equipment);
+        return equipment;
     }
 }
