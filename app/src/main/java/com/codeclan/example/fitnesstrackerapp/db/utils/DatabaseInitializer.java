@@ -84,12 +84,14 @@ public class DatabaseInitializer {
         db.activityDao().deleteAll();
         db.userDao().deleteAll();
         User user1 = addUser(db, "Lance", "Armstrong", 47);
-        Activity activity1 = addActivity(db, "Cycling", "Road biking");
+        Activity roadBiking = addActivity(db, "Cycling", "Road biking");
+        Activity mtnBiking = addActivity(db, "Cycling", "Mtn biking");
+        Activity roadRunning = addActivity(db, "Running", "road running");
         Equipment equipment1 = addEquipment(db, "Giant", "Road bike", "TCR", user1);
 
         Date startTime = getToday();
 
-        addUserExercise(db, user1, activity1, startTime, startTime, 2L, equipment1, "This is an exercise...");
+        addUserExercise(db, user1, roadBiking, startTime, startTime, 2L, equipment1, "This is an exercise...");
     }
 
     private static Date getToday() {

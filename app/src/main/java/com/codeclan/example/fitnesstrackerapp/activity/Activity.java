@@ -42,4 +42,9 @@ public class Activity {
     public void setActivityType(String activityType) {
         this.activityType = activityType;
     }
+
+    @Override
+    public String toString(){
+        return this.activityType;
+    }
 }

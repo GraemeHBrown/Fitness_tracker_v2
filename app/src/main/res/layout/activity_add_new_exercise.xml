@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/add_new_activity_header_textview"
         android:layout_width="466dp"
-        android:layout_height="69dp"
+        android:layout_height="51dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -17,6 +17,8 @@
         android:text="Add a new activity"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@android:color/holo_green_dark"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.52"
@@ -24,19 +26,33 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/exercise_text"
+    <fragment
+        android:id="@+id/activity_select_fragment"
+        android:name="com.codeclan.example.fitnesstrackerapp.useractivity.ActivitySelectFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.136"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_new_activity_header_textview" />
+
+    <fragment
+        android:id="@+id/fragment3"
+        android:name="com.codeclan.example.fitnesstrackerapp.useractivity.DateSelectFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.162"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_new_activity_header_textview" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_select_fragment"
+        app:layout_constraintVertical_bias="0.067" />
+
 
 </android.support.constraint.ConstraintLayout>
