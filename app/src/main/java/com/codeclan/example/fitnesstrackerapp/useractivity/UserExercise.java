@@ -46,6 +46,8 @@ public class UserExercise {
 
     private Long duration;
 
+    private Double distance;
+
     private String description;
 
     @ColumnInfo(name = "equipment_id")
@@ -105,5 +107,13 @@ public class UserExercise {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Double distance) {
+        this.distance = distance;
     }
 }

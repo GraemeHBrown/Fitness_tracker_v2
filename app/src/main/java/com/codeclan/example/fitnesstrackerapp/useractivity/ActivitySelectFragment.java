@@ -44,7 +44,6 @@ public class ActivitySelectFragment extends Fragment implements AdapterView.OnIt
         Spinner spinner = view.findViewById(R.id.activity_select_spinner);
         spinner.setOnItemSelectedListener(this);
         List<Activity> activities = fetchActivityData();
-        Log.d("Activities:", activities.toString());
         ArrayAdapter<Activity> activityAdapter = new ArrayAdapter<Activity>(getContext(), R.layout.support_simple_spinner_dropdown_item, activities);
         activityAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(activityAdapter);

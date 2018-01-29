@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name" activityName="app_name">Fitness Tracker App</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pick_date">Pick a start date</string>
     <string name="pick_date_and_time">Pick a start date and time</string>

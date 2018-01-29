@@ -34,7 +34,7 @@ public class ExerciseActivity extends AppCompatActivity {
 
         DatabaseInitializer.populateAsync(db);
     }
-//TODO make this return exercise done not activity types
+
     private void fetchData() {
         // Note: this kind of logic should not be in an activity.
         StringBuilder sb = new StringBuilder();
@@ -42,7 +42,7 @@ public class ExerciseActivity extends AppCompatActivity {
         for (UserExercise activity : activities) {
             String activityType = db.activityDao().findByID(activity.getActivityId()).getActivityType();
             sb.append(String.format(Locale.UK,
-                    "Description: %s, Activity Type: %s, Start date and time: %s, Duration: %s hours \n", activity.getDescription(),
+                    "Description: %s, Activity Type: %s, Start date and time: %s, Duration: %s minutes \n", activity.getDescription(),
                     activityType, activity.getStartDateAndTime(),
                     activity.getDuration()));
         }

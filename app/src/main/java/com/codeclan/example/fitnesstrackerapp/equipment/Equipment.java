@@ -76,4 +76,9 @@ public class Equipment {
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
+
+    @Override
+    public String toString(){
+        return this.equipmentModel;
+    }
 }

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:overScrollMode="always"
     android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:scrollbarStyle="outsideOverlay"
     android:scrollbars="vertical"
+    android:verticalScrollbarPosition="right"
     tools:context="com.codeclan.example.fitnesstrackerapp.useractivity.AddNewExerciseActivity">
 
     <TextView
@@ -23,7 +28,6 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
@@ -35,44 +39,43 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.151"
+        app:layout_constraintHorizontal_bias="0.029"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_new_activity_header_textview" />
 
     <Button
         android:id="@+id/date_pick_button"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="wrap_content"
+        android:layout_width="161dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:onClick="showDatePickerDialog"
         android:text="@string/pick_date_and_time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.266"
+        app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.467" />
+        app:layout_constraintVertical_bias="0.41" />
 
     <EditText
         android:id="@+id/duration_hours_input"
         android:layout_width="74dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="136dp"
-        android:layout_marginStart="104dp"
+        android:layout_marginBottom="204dp"
+        android:layout_marginStart="88dp"
         android:background="@drawable/back"
         android:ems="10"
-        android:hint="enter hours"
+        android:hint="hours"
         android:inputType="none|number"
         android:tooltipText="hours"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="104dp" />
+        android:layout_marginLeft="88dp" />
 
     <TextView
         android:id="@+id/duration_label_text_view"
@@ -87,7 +90,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/duration_hours_input"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.19"
+        app:layout_constraintHorizontal_bias="0.093"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date_pick_button"
         app:layout_constraintVertical_bias="0.0" />
@@ -95,43 +98,40 @@
 
     <EditText
         android:id="@+id/duration_input_minutes"
-        android:layout_width="82dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="70dp"
+        android:layout_height="24dp"
+        android:layout_marginBottom="156dp"
+        android:layout_marginEnd="200dp"
         android:background="@drawable/back"
         android:ems="10"
-        android:hint="enter minutes"
+        android:hint="mins"
         android:inputType="number"
         android:tooltipText="minutes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.595"
-        app:layout_constraintStart_toEndOf="@+id/duration_hours_input"
-        app:layout_constraintTop_toBottomOf="@+id/duration_label_text_view"
-        app:layout_constraintVertical_bias="0.157" />
+        android:layout_marginRight="200dp" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="16dp"
         android:text="Hours:"
         app:layout_constraintBottom_toBottomOf="@+id/duration_hours_input"
         app:layout_constraintEnd_toStartOf="@+id/duration_hours_input"
-        android:layout_marginRight="12dp" />
+        android:layout_marginRight="16dp" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
+        android:layout_marginEnd="24dp"
         android:text="Mins:"
         app:layout_constraintBottom_toBottomOf="@+id/duration_input_minutes"
-        app:layout_constraintEnd_toStartOf="@+id/duration_input_minutes" />
+        app:layout_constraintEnd_toStartOf="@+id/duration_input_minutes"
+        android:layout_marginRight="24dp" />
 
     <Button
         android:id="@+id/duration_submit"
@@ -145,10 +145,130 @@
         android:text="Submit duration"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.329"
+        app:layout_constraintHorizontal_bias="0.101"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/duration_hours_input"
-        app:layout_constraintVertical_bias="0.458" />
+        app:layout_constraintVertical_bias="0.285" />
+
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.codeclan.example.fitnesstrackerapp.useractivity.EquipmentSelectFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="424dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.89"
+        app:layout_constraintStart_toEndOf="@+id/activity_select_fragment"
+        app:layout_constraintTop_toBottomOf="@+id/add_new_activity_header_textview"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/distance_input"
+        android:layout_width="87dp"
+        android:layout_height="24dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/back"
+        android:ems="10"
+        android:hint="KM's"
+        android:inputType="numberDecimal"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.828"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment"
+        app:layout_constraintVertical_bias="0.335" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Enter a distance"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/distance_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="340dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="-96dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="551dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="-1dp" />
+
+    <EditText
+        android:id="@+id/description_text_view"
+        android:layout_width="304dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/back"
+        android:ems="10"
+        android:hint="Enter a description of activity"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/duration_submit"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/exercise_submit"
+        android:layout_width="342dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="onSubmitActivityClicked"
+        android:text="Submit Activity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description_text_view" />
 
 
 </android.support.constraint.ConstraintLayout>

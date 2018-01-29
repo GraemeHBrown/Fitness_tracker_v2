@@ -30,7 +30,7 @@ public interface UserExerciseDao {
     List<UserExercise> findAllExerciseForUserByActivity(String activityType, int userId);
 
     @Insert
-    void insertUserExercise(UserExercise exercise);
+    Long insertUserExercise(UserExercise exercise);
 
     @Delete
     void delete(UserExercise exercise);
