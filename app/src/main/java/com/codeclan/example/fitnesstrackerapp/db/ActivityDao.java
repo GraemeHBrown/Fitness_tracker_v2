@@ -18,6 +18,9 @@ public interface ActivityDao {
     @Query("SELECT * FROM activity")
     List<Activity> getAll();
 
+    @Query("SELECT * FROM activity WHERE id = :activityId")
+    Activity findByID(int activityId);
+
     @Query("SELECT * FROM activity WHERE id IN (:activityIds)")
     List<Activity> loadAllByIds(int[] activityIds);
 

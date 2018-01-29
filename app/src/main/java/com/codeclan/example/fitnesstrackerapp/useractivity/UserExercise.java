@@ -42,10 +42,7 @@ public class UserExercise {
     private int activityId;
 
     @ColumnInfo(name = "start_date")
-    private Date startDate;
-
-    @ColumnInfo(name = "start_time")
-    private Date startTime;
+    private Date startDateAndTime;
 
     private Long duration;
 
@@ -86,20 +83,12 @@ public class UserExercise {
         this.equipmentId = equipmentId;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getStartDateAndTime() {
+        return startDateAndTime;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
+    public void setStartDateAndTime(Date startDateAndTime) {
+        this.startDateAndTime = startDateAndTime;
     }
 
     public Long getDuration() {

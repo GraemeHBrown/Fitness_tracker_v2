@@ -30,13 +30,12 @@ public class DatabaseInitializer {
     }
 
     private static UserExercise addUserExercise(final AppDatabase db, final User user, final Activity activity,
-                                                final Date startDate, final Date startTime, final Long duration,
+                                                final Date startDate, final Long duration,
                                                 final Equipment equipment, final String description) {
         UserExercise exercise = new UserExercise();
         exercise.setUserId(user.getId());
         exercise.setActivityId(activity.getId());
-        exercise.setStartDate(startDate);
-        exercise.setStartTime(startTime);
+        exercise.setStartDateAndTime(startDate);
         exercise.setDuration(duration);
         exercise.setEquipmentId(equipment.getId());
         exercise.setDescription(description);
@@ -90,12 +89,21 @@ public class DatabaseInitializer {
         Equipment equipment1 = addEquipment(db, "Giant", "Road bike", "TCR", user1);
 
         Date startTime = getToday();
+        Log.d("start time:", String.valueOf(startTime));
+        Date startTimePlusMins = getDatePlus(60);
+        Log.d("start time plus:", String.valueOf(startTimePlusMins));
 
-        addUserExercise(db, user1, roadBiking, startTime, startTime, 2L, equipment1, "This is an exercise...");
+        addUserExercise(db, user1, roadBiking, startTime, 2L, equipment1, "This is an exercise...");
     }
 
     private static Date getToday() {
         Calendar calendar = Calendar.getInstance();
+        return calendar.getTime();
+    }
+
+    private static Date getDatePlus(long minutes) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MINUTE, (int) minutes);
         return calendar.getTime();
     }
 

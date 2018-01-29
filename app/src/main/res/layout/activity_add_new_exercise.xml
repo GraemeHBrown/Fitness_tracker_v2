@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/add_new_activity_header_textview" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/date_pick_button"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:onClick="showDatePickerDialog"
-        android:text="@string/pick_date"
+        android:text="@string/pick_date_and_time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.266"
@@ -59,6 +59,96 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.467" />
 
+    <EditText
+        android:id="@+id/duration_hours_input"
+        android:layout_width="74dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="136dp"
+        android:layout_marginStart="104dp"
+        android:background="@drawable/back"
+        android:ems="10"
+        android:hint="enter hours"
+        android:inputType="none|number"
+        android:tooltipText="hours"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="104dp" />
+
+    <TextView
+        android:id="@+id/duration_label_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="136dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/enter_a_duration"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/duration_hours_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.19"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_pick_button"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <EditText
+        android:id="@+id/duration_input_minutes"
+        android:layout_width="82dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/back"
+        android:ems="10"
+        android:hint="enter minutes"
+        android:inputType="number"
+        android:tooltipText="minutes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.595"
+        app:layout_constraintStart_toEndOf="@+id/duration_hours_input"
+        app:layout_constraintTop_toBottomOf="@+id/duration_label_text_view"
+        app:layout_constraintVertical_bias="0.157" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="12dp"
+        android:text="Hours:"
+        app:layout_constraintBottom_toBottomOf="@+id/duration_hours_input"
+        app:layout_constraintEnd_toStartOf="@+id/duration_hours_input"
+        android:layout_marginRight="12dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Mins:"
+        app:layout_constraintBottom_toBottomOf="@+id/duration_input_minutes"
+        app:layout_constraintEnd_toStartOf="@+id/duration_input_minutes" />
+
+    <Button
+        android:id="@+id/duration_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="onDurationSubmitButtonClick"
+        android:text="Submit duration"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.329"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/duration_hours_input"
+        app:layout_constraintVertical_bias="0.458" />
 
 
 </android.support.constraint.ConstraintLayout>
