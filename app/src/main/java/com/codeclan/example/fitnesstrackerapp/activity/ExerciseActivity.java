@@ -1,14 +1,19 @@
 package com.codeclan.example.fitnesstrackerapp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.codeclan.example.fitnesstrackerapp.R;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.db.utils.DatabaseInitializer;
 import com.codeclan.example.fitnesstrackerapp.useractivity.UserExercise;
+import com.codeclan.example.fitnesstrackerapp.useractivity.UserExerciseListAdapter;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
 
@@ -16,36 +21,25 @@ public class ExerciseActivity extends AppCompatActivity {
 
     private AppDatabase db;
     private TextView exerciseTextView;
+    List<UserExercise> exerciseForUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exercise);
-
-        exerciseTextView = findViewById(R.id.exercise_activity_view);
-
         db = AppDatabase.getInMemoryDatabase(getApplicationContext());
 
-//        populateDb();
-        fetchData();
+        setContentView(R.layout.exercise_list_view);
+        exerciseForUser = db.userExerciseDao().findAllExerciseForUser(1);
+        UserExerciseListAdapter exerciseListAdapter = new UserExerciseListAdapter(this, exerciseForUser);
+        ListView exerciseListView = findViewById(R.id.exercise_list_view);
+        exerciseListView.setAdapter(exerciseListAdapter);
     }
 
-    private void populateDb() {
+    public void getExercise(View listItem) {
+        UserExercise exercise = (UserExercise) listItem.getTag();
+        Intent intent = new Intent(this, ExerciseActivity.class); //NEW
+        intent.putExtra("exercise", (Serializable) exercise);
+        startActivity(intent); //NEW
 
-        DatabaseInitializer.populateAsync(db);
-    }
-
-    private void fetchData() {
-        // Note: this kind of logic should not be in an activity.
-        StringBuilder sb = new StringBuilder();
-        List<UserExercise> activities = db.userExerciseDao().getAll();
-        for (UserExercise activity : activities) {
-            String activityType = db.activityDao().findByID(activity.getActivityId()).getActivityType();
-            sb.append(String.format(Locale.UK,
-                    "Description: %s, Activity Type: %s, Start date and time: %s, Duration: %s minutes \n", activity.getDescription(),
-                    activityType, activity.getStartDateAndTime(),
-                    activity.getDuration()));
-        }
-        exerciseTextView.setText(sb);
     }
 }

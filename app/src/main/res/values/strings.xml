@@ -6,4 +6,5 @@
     <string name="pick_date">Pick a start date</string>
     <string name="pick_date_and_time">Pick a start date and time</string>
     <string name="enter_a_duration">Enter a duration</string>
+    <string name="title_activity_exercise_item">ExerciseItem</string>
 </resources>

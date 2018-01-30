@@ -18,7 +18,7 @@
         </activity>
         <activity android:name=".activity.ExerciseActivity" />
         <activity android:name=".equipment.EquipmentActivity" />
-        <activity android:name=".useractivity.AddNewExerciseActivity"></activity>
+        <activity android:name=".useractivity.AddNewExerciseActivity" />
     </application>
 
 </manifest>
