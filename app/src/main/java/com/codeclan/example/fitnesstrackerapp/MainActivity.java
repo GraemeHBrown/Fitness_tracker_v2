@@ -19,7 +19,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AppDatabase db;
+    AppDatabase db;
 
     private TextView welcomeMessage;
 

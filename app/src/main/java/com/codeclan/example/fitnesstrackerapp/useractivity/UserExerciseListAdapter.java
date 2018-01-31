@@ -12,6 +12,7 @@ import com.codeclan.example.fitnesstrackerapp.R;
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -39,7 +40,9 @@ public class UserExerciseListAdapter extends ArrayAdapter<UserExercise> {
         activityType.setText(currentActivity.getActivityType());
 
         TextView startDateAndTime = listItemView.findViewById(R.id.start_date_and_time_text_view);
-        startDateAndTime.setText((currentExercise.getStartDateAndTime().toString()));
+        SimpleDateFormat df = new SimpleDateFormat("DD-MM-YYYY h:mm aa");
+        String formattedDate = df.format(currentExercise.getStartDateAndTime());
+        startDateAndTime.setText(formattedDate);
 
         TextView distance = listItemView.findViewById(R.id.distance_text_view);
         StringBuilder sb = new StringBuilder();
@@ -51,6 +54,7 @@ public class UserExerciseListAdapter extends ArrayAdapter<UserExercise> {
         TextView description = listItemView.findViewById(R.id.description_text_view);
         description.setText(currentExercise.getDescription());
 
+        listItemView.setTag(currentExercise);
         return listItemView;
     }
 }

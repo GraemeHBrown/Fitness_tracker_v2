@@ -81,4 +81,8 @@ public class Equipment {
     public String toString(){
         return this.equipmentModel;
     }
+
+    public String getFullEquipmentName() {
+        return equipmentMake+ ", " + equipmentModel+", "+ equipmentType;
+    }
 }

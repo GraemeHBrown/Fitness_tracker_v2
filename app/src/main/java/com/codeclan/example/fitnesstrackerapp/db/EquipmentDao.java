@@ -6,6 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
+import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
 
 import java.util.List;
@@ -38,4 +39,7 @@ public interface EquipmentDao {
 
     @Update(onConflict = REPLACE)
     void updateEquipment(Equipment equipment);
+
+    @Query("SELECT * FROM equipment WHERE id = :equipmentId")
+    Equipment findByID(int equipmentId);
 }

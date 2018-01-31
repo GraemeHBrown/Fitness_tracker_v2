@@ -84,9 +84,10 @@ public class DatabaseInitializer {
         db.activityDao().deleteAll();
         db.userDao().deleteAll();
         User user1 = addUser(db, "Lance", "Armstrong", 47);
-        Activity roadBiking = addActivity(db, "Cycling", "Road biking");
-        Activity mtnBiking = addActivity(db, "Cycling", "Mtn biking");
-        Activity roadRunning = addActivity(db, "Running", "road running");
+        Activity roadBiking = addActivity(db, "Cycling", "Road Biking");
+        Activity mtnBiking = addActivity(db, "Cycling", "Mtn Biking");
+        Activity roadRunning = addActivity(db, "Running", "Road Running");
+        Activity swimming = addActivity(db, "Swimming", "Swimming");
         Equipment equipment1 = addEquipment(db, "Trek", "Road bike", "TCR", user1);
 
         Date startTime = getToday();
@@ -94,7 +95,7 @@ public class DatabaseInitializer {
         Date startTimePlusMins = getDatePlus(60);
         Log.d("start time plus:", String.valueOf(startTimePlusMins));
 
-        addUserExercise(db, user1, roadBiking, startTime, 2L, equipment1, "This is an exercise...", 3.4);
+        addUserExercise(db, user1, roadBiking, startTime, 120L, equipment1, "This is an exercise...", 3.4);
     }
 
     private static Date getToday() {

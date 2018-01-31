@@ -9,6 +9,7 @@ import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
 import com.codeclan.example.fitnesstrackerapp.user.User;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
@@ -30,7 +31,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
                 childColumns = "equipment_id",
                 onDelete = CASCADE)
         })
-public class UserExercise {
+public class UserExercise implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int id;

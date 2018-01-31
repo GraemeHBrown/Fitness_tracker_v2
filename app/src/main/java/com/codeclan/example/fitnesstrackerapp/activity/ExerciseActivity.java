@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.codeclan.example.fitnesstrackerapp.R;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.db.utils.DatabaseInitializer;
+import com.codeclan.example.fitnesstrackerapp.useractivity.ExerciseDetailsActivity;
 import com.codeclan.example.fitnesstrackerapp.useractivity.UserExercise;
 import com.codeclan.example.fitnesstrackerapp.useractivity.UserExerciseListAdapter;
 
@@ -37,8 +38,8 @@ public class ExerciseActivity extends AppCompatActivity {
 
     public void getExercise(View listItem) {
         UserExercise exercise = (UserExercise) listItem.getTag();
-        Intent intent = new Intent(this, ExerciseActivity.class); //NEW
-        intent.putExtra("exercise", (Serializable) exercise);
+        Intent intent = new Intent(this, ExerciseDetailsActivity.class); //NEW
+        intent.putExtra("exercise", exercise);
         startActivity(intent); //NEW
 
     }
