@@ -8,12 +8,14 @@ import android.widget.TextView;
 
 import com.codeclan.example.fitnesstrackerapp.R;
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
+import com.codeclan.example.fitnesstrackerapp.activity.ActivityImages;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
 
 public class ExerciseDetailsActivity extends AppCompatActivity {
 
     private AppDatabase db;
+    private ActivityImages actImages;
 
     Integer[] imgid = {R.drawable.road_bike, R.drawable.mtn_bike, R.drawable.running, R.drawable.swimming
 
@@ -51,18 +53,19 @@ public class ExerciseDetailsActivity extends AppCompatActivity {
         equipment.setText(foundEquioment.getFullEquipmentName());
 
         ImageView image = findViewById(R.id.activity_image_view);
+        int resId = ActivityImages.getImagesResourceIdForActivityType(activityType);
+        image.setImageResource(resId);
 
-
-        if (activityType.equals("Road Biking")) {
-            image.setImageResource(imgid[0]);
-        } else if (activityType.equals("Mtn Biking")) {
-            image.setImageResource(imgid[1]);
-        } else if (activityType.equals("Road Running")) {
-            image.setImageResource(imgid[2]);
-        } else if (activityType.equals("Swimming")) {
-            image.setImageResource(imgid[3]);
-
-        }
+//        if (activityType.equals("Road Biking")) {
+//            image.setImageResource(imgid[0]);
+//        } else if (activityType.equals("Mtn Biking")) {
+//            image.setImageResource(imgid[1]);
+//        } else if (activityType.equals("Road Running")) {
+//            image.setImageResource(imgid[2]);
+//        } else if (activityType.equals("Swimming")) {
+//            image.setImageResource(imgid[3]);
+//
+//        }
 
     }
 }

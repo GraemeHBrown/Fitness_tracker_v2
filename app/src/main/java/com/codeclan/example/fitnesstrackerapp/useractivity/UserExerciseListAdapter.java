@@ -6,10 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codeclan.example.fitnesstrackerapp.R;
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
+import com.codeclan.example.fitnesstrackerapp.activity.ActivityImages;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 
 import java.text.SimpleDateFormat;
@@ -37,7 +39,9 @@ public class UserExerciseListAdapter extends ArrayAdapter<UserExercise> {
         UserExercise currentExercise = getItem(position);
         TextView activityType = listItemView.findViewById(R.id.activity_type_text_view);
         Activity currentActivity = db.activityDao().findByID(currentExercise.getActivityId());
-        activityType.setText(currentActivity.getActivityType());
+        String typeString = currentActivity.getActivityType();
+
+        activityType.setText(typeString);
 
         TextView startDateAndTime = listItemView.findViewById(R.id.start_date_and_time_text_view);
         SimpleDateFormat df = new SimpleDateFormat("DD-MM-YYYY h:mm aa");
@@ -53,6 +57,10 @@ public class UserExerciseListAdapter extends ArrayAdapter<UserExercise> {
 
         TextView description = listItemView.findViewById(R.id.description_text_view);
         description.setText(currentExercise.getDescription());
+
+        ImageView imageView = listItemView.findViewById(R.id.list_item_image_view);
+        int resId = ActivityImages.getImagesResourceIdForActivityType(typeString);
+        imageView.setImageResource(resId);
 
         listItemView.setTag(currentExercise);
         return listItemView;
