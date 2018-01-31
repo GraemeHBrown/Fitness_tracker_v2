@@ -60,16 +60,6 @@ public class ExerciseDetailsActivity extends AppCompatActivity {
         int resId = ActivityImages.getImagesResourceIdForActivityType(activityType);
         image.setImageResource(resId);
 
-//        if (activityType.equals("Road Biking")) {
-//            image.setImageResource(imgid[0]);
-//        } else if (activityType.equals("Mtn Biking")) {
-//            image.setImageResource(imgid[1]);
-//        } else if (activityType.equals("Road Running")) {
-//            image.setImageResource(imgid[2]);
-//        } else if (activityType.equals("Swimming")) {
-//            image.setImageResource(imgid[3]);
-//
-//        }
 
     }
 }

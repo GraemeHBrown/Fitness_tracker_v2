@@ -102,6 +102,7 @@ public class DatabaseInitializer {
 
         addUserExercise(db, user1, roadBiking, startTime, 120L, equipment1, "This is an exercise...", 45.0);
         addUserExercise(db, user1, roadRunning, startTime, 40L, null, "This is a road run...", 10.3);
+        addUserExercise(db, user1, swimming, startTime, 50L, null, "This is a swim", 4.0);
     }
 
     private static Date getToday() {

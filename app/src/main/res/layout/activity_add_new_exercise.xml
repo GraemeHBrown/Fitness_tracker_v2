@@ -24,7 +24,8 @@
         android:text="Add a new activity"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="@android:color/holo_green_dark"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,20 +48,25 @@
 
     <Button
         android:id="@+id/date_pick_button"
-        style="@style/Widget.AppCompat.Button"
+        style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="161dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginStart="8dp"
+        android:background="@android:color/transparent"
+        android:backgroundTint="@android:color/holo_red_light"
+        android:drawableLeft="@drawable/datepicker_icon"
         android:onClick="showDatePickerDialog"
         android:text="@string/pick_date_and_time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.41" />
+        app:layout_constraintVertical_bias="0.415" />
 
     <EditText
         android:id="@+id/duration_hours_input"
@@ -135,12 +141,14 @@
 
     <Button
         android:id="@+id/duration_submit"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:drawableLeft="@drawable/stopwatch_icon"
         android:onClick="onDurationSubmitButtonClick"
         android:text="Submit duration"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -256,12 +264,14 @@
 
     <Button
         android:id="@+id/exercise_submit"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="342dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@android:color/holo_red_light"
         android:onClick="onSubmitActivityClicked"
         android:text="Submit Activity"
         app:layout_constraintBottom_toBottomOf="parent"
