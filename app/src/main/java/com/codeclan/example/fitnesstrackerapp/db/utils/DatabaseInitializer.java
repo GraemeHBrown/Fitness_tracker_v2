@@ -37,7 +37,9 @@ public class DatabaseInitializer {
         exercise.setActivityId(activity.getId());
         exercise.setStartDateAndTime(startDate);
         exercise.setDuration(duration);
-        exercise.setEquipmentId(equipment.getId());
+        if (equipment != null) {
+            exercise.setEquipmentId(equipment.getId());
+        }
         exercise.setDescription(description);
         exercise.setDistance(distance);
         db.userExerciseDao().insertUserExercise(exercise);
@@ -89,13 +91,17 @@ public class DatabaseInitializer {
         Activity roadRunning = addActivity(db, "Running", "Road Running");
         Activity swimming = addActivity(db, "Swimming", "Swimming");
         Equipment equipment1 = addEquipment(db, "Trek", "Road bike", "TCR", user1);
+        Equipment equipment2 = addEquipment(db, "Trek", "Road bike", "Madone", user1);
+        Equipment equipment3 = addEquipment(db, "Trek", "Mountain Bike", "Fuel", user1);
+        Equipment equipment4 = addEquipment(db, "Trek", "CX bike", "Crocket", user1);
 
         Date startTime = getToday();
         Log.d("start time:", String.valueOf(startTime));
         Date startTimePlusMins = getDatePlus(60);
         Log.d("start time plus:", String.valueOf(startTimePlusMins));
 
-        addUserExercise(db, user1, roadBiking, startTime, 120L, equipment1, "This is an exercise...", 3.4);
+        addUserExercise(db, user1, roadBiking, startTime, 120L, equipment1, "This is an exercise...", 45.0);
+        addUserExercise(db, user1, roadRunning, startTime, 40L, null, "This is a road run...", 10.3);
     }
 
     private static Date getToday() {

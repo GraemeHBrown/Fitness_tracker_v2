@@ -4,6 +4,7 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.Nullable;
 
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
@@ -52,7 +53,8 @@ public class UserExercise implements Serializable {
     private String description;
 
     @ColumnInfo(name = "equipment_id")
-    private int equipmentId;
+    @Nullable
+    private Integer equipmentId;
 
     public int getId() {
         return id;
@@ -78,11 +80,11 @@ public class UserExercise implements Serializable {
         this.activityId = activityId;
     }
 
-    public int getEquipmentId() {
+    public Integer getEquipmentId() {
         return equipmentId;
     }
 
-    public void setEquipmentId(int equipmentId) {
+    public void setEquipmentId(Integer equipmentId) {
         this.equipmentId = equipmentId;
     }
 

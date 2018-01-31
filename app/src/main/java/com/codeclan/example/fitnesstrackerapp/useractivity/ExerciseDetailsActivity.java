@@ -48,9 +48,13 @@ public class ExerciseDetailsActivity extends AppCompatActivity {
         description.setText(exercise.getDescription());
 
         TextView equipment = findViewById(R.id.equipment_description);
-        Equipment foundEquioment = db.equipmentDao().findByID(exercise.getEquipmentId());
 
-        equipment.setText(foundEquioment.getFullEquipmentName());
+        if (exercise.getEquipmentId() != null) {
+            Equipment foundEquipment = db.equipmentDao().findByID(exercise.getEquipmentId());
+            equipment.setText(foundEquipment.getFullEquipmentName());
+        } else {
+            equipment.setText(R.string.no_equipment);
+        }
 
         ImageView image = findViewById(R.id.activity_image_view);
         int resId = ActivityImages.getImagesResourceIdForActivityType(activityType);
