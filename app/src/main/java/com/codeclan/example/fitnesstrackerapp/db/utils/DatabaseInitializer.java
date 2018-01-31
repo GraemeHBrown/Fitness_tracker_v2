@@ -18,7 +18,7 @@ import java.util.Date;
  */
 
 public class DatabaseInitializer {
-
+    private static int dbPopulationCount = 0;
     public static void populateAsync(final AppDatabase db) {
 
         PopulateDbAsync task = new PopulateDbAsync(db);
@@ -26,7 +26,12 @@ public class DatabaseInitializer {
     }
 
     public static void populateSync(@NonNull final AppDatabase db) {
-        populateWithTestData(db);
+        if(dbPopulationCount<1){
+            Log.i("In PopSync", "populating");
+            populateWithTestData(db);
+            dbPopulationCount++;
+        }
+
     }
 
     private static UserExercise addUserExercise(final AppDatabase db, final User user, final Activity activity,
@@ -94,6 +99,8 @@ public class DatabaseInitializer {
         Equipment equipment2 = addEquipment(db, "Trek", "Road bike", "Madone", user1);
         Equipment equipment3 = addEquipment(db, "Trek", "Mountain Bike", "Fuel", user1);
         Equipment equipment4 = addEquipment(db, "Trek", "CX bike", "Crocket", user1);
+        Equipment equipment5 = addEquipment(db, "Addidas", "Running shoe", "Boost", user1);
+        Equipment equipment6 = addEquipment(db, "Swimovate", "Swimming watch", "Poolmate 2", user1);
 
         Date startTime = getToday();
         Log.d("start time:", String.valueOf(startTime));
@@ -102,7 +109,7 @@ public class DatabaseInitializer {
 
         addUserExercise(db, user1, roadBiking, startTime, 120L, equipment1, "This is an exercise...", 45.0);
         addUserExercise(db, user1, roadRunning, startTime, 40L, null, "This is a road run...", 10.3);
-        addUserExercise(db, user1, swimming, startTime, 50L, null, "This is a swim", 4.0);
+        addUserExercise(db, user1, swimming, startTime, 50L, equipment6, "This is a swim", 4.0);
     }
 
     private static Date getToday() {

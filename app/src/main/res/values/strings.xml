@@ -8,4 +8,7 @@
     <string name="enter_a_duration">Enter a duration</string>
     <string name="title_activity_exercise_item">ExerciseItem</string>
     <string name="no_equipment">no equipment selected</string>
+    <string name="add_new_activity">Add new activity</string>
+    <string name="view_activities">View activities</string>
+    <string name="home">Home</string>
 </resources>

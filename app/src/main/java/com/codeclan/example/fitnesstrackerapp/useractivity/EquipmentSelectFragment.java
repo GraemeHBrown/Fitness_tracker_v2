@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import com.codeclan.example.fitnesstrackerapp.R;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
+import com.codeclan.example.fitnesstrackerapp.user.User;
 
 import java.util.List;
 
@@ -49,7 +50,8 @@ public class EquipmentSelectFragment extends Fragment implements AdapterView.OnI
     }
 
     private List<Equipment> fetchEquipment() {
-        return db.equipmentDao().findAllEquipmentForUser(1);
+        User appUser = db.userDao().getAll().get(0);
+        return db.equipmentDao().findAllEquipmentForUser(appUser.getId());
     }
 
 

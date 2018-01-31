@@ -3,8 +3,9 @@ package com.codeclan.example.fitnesstrackerapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -28,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.main_activity_toolbar);
+        setSupportActionBar(myToolbar);
+
         welcomeMessage = findViewById(R.id.welcome_text_view);
 
         db = AppDatabase.getInMemoryDatabase(getApplicationContext());
@@ -41,6 +45,29 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+
+            case R.id.add_new_activity:
+                Intent intent = new Intent(this, AddNewExerciseActivity.class);
+                startActivity(intent);
+                return true;
+
+            case R.id.view_activities:
+                Intent intentView = new Intent(this, ExerciseActivity.class);
+                startActivity(intentView);
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     public void onButtonClick(View button) {
@@ -64,7 +91,8 @@ public class MainActivity extends AppCompatActivity {
     private void fetchData() {
         // Note: this kind of logic should not be in an activity.
         StringBuilder sb = new StringBuilder();
-        User user = db.userDao().findUserById(1);
+        User user = db.userDao().getAll().get(0);
+
         sb.append(String.format(Locale.UK,
                 "%s's Exercise Tracker", user.getFirstName()));
 

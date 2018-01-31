@@ -6,12 +6,24 @@
     android:layout_height="match_parent"
     tools:context="com.codeclan.example.fitnesstrackerapp.activity.ExerciseActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/exercise_activity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:backgroundTint="@android:color/holo_red_light"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:titleTextColor="@android:color/background_light" />
 
     <ListView
         android:id="@+id/exercise_list_view"
         android:layout_width="344dp"
         android:layout_height="495dp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exercise_activity_toolbar"
         tools:ignore="MissingConstraints" />
 </android.support.constraint.ConstraintLayout>

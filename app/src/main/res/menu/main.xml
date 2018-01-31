@@ -2,5 +2,15 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Item" />
+
+
+    <!-- Settings, should always be in the overflow -->
+    <item android:id="@+id/add_new_activity"
+        android:title="@string/add_new_activity"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/view_activities"
+        android:title="@string/view_activities"
+        app:showAsAction="never"/>
+
 </menu>
