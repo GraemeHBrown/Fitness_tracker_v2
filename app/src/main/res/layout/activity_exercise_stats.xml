@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.codeclan.example.fitnesstrackerapp.useractivity.ExerciseStatsActivity"
-    tools:showIn="@layout/activity_exercise_stats">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/stats_activity_toolbar"
@@ -17,23 +15,67 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:titleTextColor="@android:color/background_light" />
+        app:titleTextColor="@android:color/background_light"
+        tools:layout_editor_absoluteY="1dp" />
 
     <GridLayout
+        android:id="@+id/gridLayout4"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:columnCount="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.126"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stats_activity_toolbar"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/all_exercise_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:layout_rowSpan="2"
+            android:ems="10"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="534dp"
+            tools:layout_editor_absoluteY="0dp" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            tools:layout_editor_absoluteX="190dp"
-            tools:layout_editor_absoluteY="278dp" />
+            android:layout_column="0"
+            android:layout_row="0"
+            android:text="Activity Count"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="136dp"
+            tools:layout_editor_absoluteY="373dp" />
+
+        <TableLayout
+            android:id="@+id/activity_count"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:divider="@android:drawable/divider_horizontal_textfield">
+
+
+        </TableLayout>
+
 
     </GridLayout>
+
+
 
 
 </android.support.constraint.ConstraintLayout>

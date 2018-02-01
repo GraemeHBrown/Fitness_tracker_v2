@@ -29,7 +29,6 @@
             android:parentActivityName=".activity.ExerciseActivity" />
         <activity
             android:name=".useractivity.ExerciseStatsActivity"
-            android:label="@string/title_activity_exercise_stats"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 

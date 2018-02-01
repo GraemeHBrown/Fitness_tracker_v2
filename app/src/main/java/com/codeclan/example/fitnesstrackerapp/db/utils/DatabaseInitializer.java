@@ -102,14 +102,20 @@ public class DatabaseInitializer {
         Equipment equipment5 = addEquipment(db, "Addidas", "Running shoe", "Boost", user1);
         Equipment equipment6 = addEquipment(db, "Swimovate", "Swimming watch", "Poolmate 2", user1);
 
-        Date startTime = getToday();
-        Log.d("start time:", String.valueOf(startTime));
-        Date startTimePlusMins = getDatePlus(60);
-        Log.d("start time plus:", String.valueOf(startTimePlusMins));
+        Date threeWeeksAgo = getTodayPlusDays(-21);
+        Date oneWeekAgo = getTodayPlusDays(-7);
+        Date yesterday = getTodayPlusDays(-1);
+        Date twoDaysAgo = getTodayPlusDays(-2);
+        Date twoWeeksAgo = getTodayPlusDays(-14);
+//        Log.d("start time:", String.valueOf(startTime));
+        Date startTimePlusMins = getDatePlusMinutes(60);
+//        Log.d("start time plus:", String.valueOf(startTimePlusMins));
 
-        addUserExercise(db, user1, roadBiking, startTime, 120L, equipment1, "This is an exercise...", 45.0);
-        addUserExercise(db, user1, roadRunning, startTime, 40L, null, "This is a road run...", 10.3);
-        addUserExercise(db, user1, swimming, startTime, 50L, equipment6, "This is a swim", 4.0);
+        addUserExercise(db, user1, roadBiking, oneWeekAgo, 120L, equipment1, "This is an exercise...", 45.0);
+        addUserExercise(db, user1, roadRunning, threeWeeksAgo, 40L, null, "This is a road run...", 10.3);
+        addUserExercise(db, user1, swimming, yesterday, 50L, equipment6, "This is a swim...", 4.0);
+        addUserExercise(db, user1, mtnBiking, twoDaysAgo, 60L, equipment3, "Mtn biking", 45.7);
+        addUserExercise(db, user1, mtnBiking, twoWeeksAgo, 120L, equipment3, "Mtn biking x1", 56.7);
     }
 
     private static Date getToday() {
@@ -117,9 +123,15 @@ public class DatabaseInitializer {
         return calendar.getTime();
     }
 
-    private static Date getDatePlus(long minutes) {
+    private static Date getDatePlusMinutes(long minutes) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, (int) minutes);
+        return calendar.getTime();
+    }
+
+    private static Date getTodayPlusDays(int daysAgo) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, daysAgo);
         return calendar.getTime();
     }
 
