@@ -27,6 +27,7 @@ import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -122,15 +123,24 @@ public class ExerciseStatsActivity extends AppCompatActivity {
     @TargetApi(Build.VERSION_CODES.N)
     private Map<String, Long> getExerciseCounts(List<UserExercise> allExercise) {
         ArrayList<String> activityTypes = new ArrayList<>();
+        Map<String, Long> typeMap = new HashMap<>();
         for (UserExercise exercise : allExercise) {
             int activityId = exercise.getActivityId();
             Activity foundActivity = db.activityDao().findByID(activityId);
             activityTypes.add(foundActivity.getActivityType());
         }
 
-        Map<String, Long> typeCount = activityTypes.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        for (String type : activityTypes) {
+            if (typeMap.containsKey(type)) {
+                typeMap.put(type, typeMap.get(type) + 1);
+            } else {
+                typeMap.put(type, 1L);
+            }
+        }
 
-        return typeCount;
+//        Map<String, Long> typeCount = activityTypes.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        return typeMap;
     }
 
     @Override

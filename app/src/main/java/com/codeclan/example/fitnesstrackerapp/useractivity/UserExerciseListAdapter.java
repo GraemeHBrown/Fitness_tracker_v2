@@ -45,9 +45,9 @@ public class UserExerciseListAdapter extends ArrayAdapter<UserExercise> {
         activityType.setText(typeString);
 
         TextView startDateAndTime = listItemView.findViewById(R.id.start_date_and_time_text_view);
-        SimpleDateFormat df = new SimpleDateFormat("DD-MM-YYYY h:mm aa");
-        String formattedDate = df.format(currentExercise.getStartDateAndTime());
-        startDateAndTime.setText(formattedDate);
+//        SimpleDateFormat df = new SimpleDateFormat("dd-mm-yyyy h:mm aa");
+//        String formattedDate = df.format(currentExercise.getStartDateAndTime());
+        startDateAndTime.setText(currentExercise.getStartDateAndTime().toString());
 
         TextView distance = listItemView.findViewById(R.id.distance_text_view);
         StringBuilder sb = new StringBuilder();
