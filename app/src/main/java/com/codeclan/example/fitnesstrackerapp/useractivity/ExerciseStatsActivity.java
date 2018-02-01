@@ -3,7 +3,6 @@ package com.codeclan.example.fitnesstrackerapp.useractivity;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -21,6 +20,11 @@ import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.activity.ExerciseActivity;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.user.User;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.ValueDependentColor;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
+import com.jjoe64.graphview.series.BarGraphSeries;
+import com.jjoe64.graphview.series.DataPoint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +39,8 @@ public class ExerciseStatsActivity extends AppCompatActivity {
     TableRow tableRow;
     Map<String, Long> exerciseCounts;
     TextView activityCount, activityKey;
+    ArrayList<String> labels;
+    ArrayList<Long> values;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +57,46 @@ public class ExerciseStatsActivity extends AppCompatActivity {
         exerciseCounts = getExerciseCounts(allExercise);
         layout = findViewById(R.id.activity_count);
         addDataToTable();
+        values = getValuesFromCount(exerciseCounts);
+        labels = getLabelFromCount(exerciseCounts);
+        String[] horizLabels = labels.toArray(new String[0]);
+        GraphView graph = (GraphView) findViewById(R.id.graph);
 
+        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
+        staticLabelsFormatter.setHorizontalLabels(horizLabels);
+        BarGraphSeries<DataPoint> series = new BarGraphSeries<>();
+        for (int i = 0; i < values.size(); i++) {
+            DataPoint point = new DataPoint(i, values.get(i));
+            series.appendData(point, false, 200, true);
+
+        }
+
+        series.setSpacing(40);
+        graph.getGridLabelRenderer().setHumanRounding(true);
+        graph.addSeries(series);
+        graph.getViewport().setMinY(0);
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+        graph.getGridLabelRenderer().setTextSize(35);
+        series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
+            @Override
+            public int get(DataPoint data) {
+                return Color.rgb((int) data.getX() * 255 / 4, (int) Math.abs(data.getY() * 255 / 6), 100);
+            }
+        });
+
+    }
+
+    private ArrayList<Long> getValuesFromCount(Map<String, Long> exerciseCounts) {
+        ArrayList<Long> values = new ArrayList<>();
+        values.addAll(exerciseCounts.values());
+        return values;
+    }
+
+    private ArrayList<String> getLabelFromCount(Map<String, Long> exerciseCounts) {
+        ArrayList<String> labels = new ArrayList<>();
+        labels.addAll(exerciseCounts.keySet());
+        return labels;
     }
 
     private void addDataToTable() {
