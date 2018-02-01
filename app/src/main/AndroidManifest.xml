@@ -16,10 +16,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ExerciseActivity" android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".activity.ExerciseActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".equipment.EquipmentActivity" />
-        <activity android:name=".useractivity.AddNewExerciseActivity" android:windowSoftInputMode="stateHidden" android:parentActivityName=".MainActivity" />
-        <activity android:name=".useractivity.ExerciseDetailsActivity" android:parentActivityName=".activity.ExerciseActivity"/>
+        <activity
+            android:name=".useractivity.AddNewExerciseActivity"
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".useractivity.ExerciseDetailsActivity"
+            android:parentActivityName=".activity.ExerciseActivity" />
+        <activity
+            android:name=".useractivity.ExerciseStatsActivity"
+            android:label="@string/title_activity_exercise_stats"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -11,4 +11,5 @@
     <string name="add_new_activity">Add new activity</string>
     <string name="view_activities">View activities</string>
     <string name="home">Home</string>
+    <string name="title_activity_exercise_stats">ExerciseStatsActivity</string>
 </resources>

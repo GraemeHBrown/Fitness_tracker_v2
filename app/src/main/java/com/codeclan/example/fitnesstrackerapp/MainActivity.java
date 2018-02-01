@@ -2,6 +2,7 @@ package com.codeclan.example.fitnesstrackerapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.db.utils.DatabaseInitializer;
 import com.codeclan.example.fitnesstrackerapp.user.User;
 import com.codeclan.example.fitnesstrackerapp.useractivity.AddNewExerciseActivity;
+import com.codeclan.example.fitnesstrackerapp.useractivity.ExerciseStatsActivity;
 
 import java.util.Locale;
 
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.main_activity_toolbar);
         setSupportActionBar(myToolbar);
 
+        ActionBar ab = getSupportActionBar();
         welcomeMessage = findViewById(R.id.welcome_text_view);
 
         db = AppDatabase.getInMemoryDatabase(getApplicationContext());
@@ -80,6 +83,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void onAddNewActivityButtonClick(View button) {
         Intent intent = new Intent(this, AddNewExerciseActivity.class);
+        startActivity(intent);
+    }
+
+    public void onViewStatsButtonClick(View button){
+        Intent intent = new Intent(this, ExerciseStatsActivity.class);
         startActivity(intent);
     }
 
