@@ -75,7 +75,6 @@ public class EquipmentSelectFragment extends Fragment implements AdapterView.OnI
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Equipment selectedEquipment = (Equipment) parent.getItemAtPosition(position);
-        Log.d("Selected equipment:", String.valueOf(selectedEquipment.getId()));
         mListener.onEquipmentSelected(selectedEquipment);
     }
 

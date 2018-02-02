@@ -129,7 +129,6 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
 
     public void onDurationSubmitButtonClick(View view) {
         minutesForCalc = minutesConvertedFromHours + minutesEntered;
-        Log.d("Minutes for calc:", minutesForCalc.toString());
         Toast toast = Toast.makeText(getApplicationContext(), "Total duration: " + minutesForCalc + " (mins)", Toast.LENGTH_SHORT);
         toast.show();
         exerciseToAdd.setDuration(minutesForCalc);
@@ -137,7 +136,6 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
 
     @Override
     public void onEquipmentSelected(Equipment equipment) {
-        Log.d("Equipment selected:", equipment.toString());
         exerciseToAdd.setEquipmentId(equipment.getId());
     }
 
