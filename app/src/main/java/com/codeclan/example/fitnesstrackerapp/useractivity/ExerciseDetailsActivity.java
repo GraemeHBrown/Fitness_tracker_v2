@@ -18,6 +18,8 @@ import com.codeclan.example.fitnesstrackerapp.activity.ExerciseActivity;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
 
+import java.text.SimpleDateFormat;
+
 public class ExerciseDetailsActivity extends AppCompatActivity {
 
     private AppDatabase db;
@@ -39,7 +41,10 @@ public class ExerciseDetailsActivity extends AppCompatActivity {
         exerciseType.setText(foundActivity.getActivityType());
 
         TextView dateAndTime = findViewById(R.id.date_and_time);
-        dateAndTime.setText(exercise.getStartDateAndTime().toString());
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy h:mm aa");
+        String formattedDate = df.format(exercise.getStartDateAndTime());
+        dateAndTime.setText(formattedDate);
+
 
         TextView duration = findViewById(R.id.exercise_duration);
         duration.setText(String.valueOf(exercise.getDuration()));
