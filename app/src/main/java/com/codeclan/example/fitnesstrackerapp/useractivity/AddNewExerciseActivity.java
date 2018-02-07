@@ -24,6 +24,8 @@ import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
 import com.codeclan.example.fitnesstrackerapp.user.User;
 
+import org.w3c.dom.Text;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -40,7 +42,7 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
     Double distance;
     private TextView minutesDurationTextView;
     private Long minutesConvertedFromHours = 0L;
-    private Long minutesEntered =0L;
+    private Long minutesEntered = 0L;
     String description;
 
 
@@ -65,8 +67,6 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
 
         ActionBar ab = getSupportActionBar();
 
-        // Enable the Up button
-        ab.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -128,10 +128,23 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
     }
 
     public void onDurationSubmitButtonClick(View view) {
-        minutesForCalc = minutesConvertedFromHours + minutesEntered;
-        Toast toast = Toast.makeText(getApplicationContext(), "Total duration: " + minutesForCalc + " (mins)", Toast.LENGTH_SHORT);
-        toast.show();
-        exerciseToAdd.setDuration(minutesForCalc);
+        TextView minsView = findViewById(R.id.duration_input_minutes);
+        TextView hoursView = findViewById(R.id.duration_hours_input);
+        String minsEnteredString = minsView.getText().toString();
+        if (!minsEnteredString.isEmpty()) {
+            minutesEntered = Long.valueOf(minsView.getText().toString());
+            if (minutesEntered == 0 && minutesConvertedFromHours == 0) {
+                hoursView.setError("Must enter a duration in hours if minutes are '0'!");
+            } else {
+                minutesForCalc = minutesConvertedFromHours + minutesEntered;
+                Toast toast = Toast.makeText(getApplicationContext(), "Total duration: " + minutesForCalc + " (mins)", Toast.LENGTH_SHORT);
+                toast.show();
+                exerciseToAdd.setDuration(minutesForCalc);
+            }
+        } else {
+            minsView.setError(minsView.getHint() + " is required!");
+        }
+
     }
 
     @Override
@@ -139,7 +152,7 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
         exerciseToAdd.setEquipmentId(equipment.getId());
     }
 
-    public void onSubmitActivityClicked(View view){
+    public void onSubmitActivityClicked(View view) {
         User appUser = db.userDao().getAll().get(0);
         exerciseToAdd.setUserId(appUser.getId());
         Long rowId = db.userExerciseDao().insertUserExercise(exerciseToAdd);
@@ -168,12 +181,12 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
 
             @Override
             public void afterTextChanged(Editable s) {
-
-                if (s.length() != 0 && s!=null) {
-                    Log.d("Hours entered: ", s.toString());
+                if (s.length() != 0) {
+                    Log.d("In after text changed: ", "hours");
                     Integer hours = Integer.valueOf(String.valueOf(s));
                     minutesConvertedFromHours = calculateMinutesFromInput(hours);
-                    Log.d("Converted minutes: ", minutesConvertedFromHours.toString());
+                } else {
+                    minutesConvertedFromHours = 0L;
                 }
 
             }
@@ -227,25 +240,9 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
         });
     }
 
+
     private void addTextChangedListenerForMinutes(TextView view) {
-        view.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() != 0) {
-                    minutesEntered = Long.valueOf(String.valueOf(s));
-                    Log.d("Minutes entered:", minutesEntered.toString());
-                }
-            }
+        view.addTextChangedListener(new DurationValidator(view) {
         });
     }
 
