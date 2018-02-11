@@ -24,6 +24,8 @@ public class EquipmentSelectFragment extends Fragment implements AdapterView.OnI
 
     private OnEquipmentSelectedListener mListener;
 
+    private Equipment noEquipmentOption;
+
     public EquipmentSelectFragment() {
         // Required empty public constructor
     }
@@ -43,15 +45,24 @@ public class EquipmentSelectFragment extends Fragment implements AdapterView.OnI
         Spinner spinner = view.findViewById(R.id.equipment_select_spinner);
         spinner.setOnItemSelectedListener(this);
         List<Equipment> equipment = fetchEquipment();
+
         ArrayAdapter<Equipment> equipmentAdapter = new ArrayAdapter<Equipment>(getContext(), R.layout.support_simple_spinner_dropdown_item, equipment);
+
         equipmentAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(equipmentAdapter);
+        int position = equipmentAdapter.getPosition(noEquipmentOption);
+        Log.d("Position of default", String.valueOf(position));
+        spinner.setSelection(position);
         return view;
     }
 
     private List<Equipment> fetchEquipment() {
         User appUser = db.userDao().getAll().get(0);
-        return db.equipmentDao().findAllEquipmentForUser(appUser.getId());
+        noEquipmentOption = new Equipment();
+        noEquipmentOption.setEquipmentModel("No equipment");
+        List<Equipment> equipForUser = db.equipmentDao().findAllEquipmentForUser(appUser.getId());
+        equipForUser.add(noEquipmentOption);
+        return equipForUser;
     }
 
 

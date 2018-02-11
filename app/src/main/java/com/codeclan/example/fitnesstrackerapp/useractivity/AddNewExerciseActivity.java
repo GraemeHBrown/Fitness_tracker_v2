@@ -158,7 +158,11 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
 
     @Override
     public void onEquipmentSelected(Equipment equipment) {
-        exerciseToAdd.setEquipmentId(equipment.getId());
+        Log.d("Equip ID in activity: ", String.valueOf(equipment.getId()));
+        if(equipment.getId()!=0){
+            exerciseToAdd.setEquipmentId(equipment.getId());
+        }
+
     }
 
 
