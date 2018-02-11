@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="370dp"
-    android:layout_height="520dp"
+    android:layout_height="540dp"
     android:overScrollMode="always"
     android:scrollbarAlwaysDrawVerticalTrack="true"
     android:scrollbarStyle="outsideOverlay"
@@ -79,99 +79,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.415" />
-
-    <EditText
-        android:id="@+id/duration_hours_input"
-        android:layout_width="74dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="204dp"
-        android:layout_marginStart="88dp"
-        android:background="@drawable/back"
-        android:ems="10"
-        android:hint="hours"
-        android:inputType="number"
-        android:tooltipText="hours"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="88dp" />
-
-    <TextView
-        android:id="@+id/duration_label_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="136dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/enter_a_duration"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/duration_hours_input"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.093"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_pick_button"
-        app:layout_constraintVertical_bias="0.0" />
-
-
-    <EditText
-        android:id="@+id/duration_input_minutes"
-        android:layout_width="70dp"
-        android:layout_height="24dp"
-        android:layout_marginBottom="152dp"
-        android:layout_marginEnd="208dp"
-        android:background="@drawable/back"
-        android:ems="10"
-        android:hint="mins"
-        android:inputType="number"
-        android:tooltipText="minutes"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginRight="208dp" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:text="Hours:"
-        app:layout_constraintBottom_toBottomOf="@+id/duration_hours_input"
-        app:layout_constraintEnd_toStartOf="@+id/duration_hours_input" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="28dp"
-        android:text="Mins:"
-        app:layout_constraintBottom_toBottomOf="@+id/duration_input_minutes"
-        app:layout_constraintEnd_toStartOf="@+id/duration_input_minutes"
-        android:layout_marginRight="28dp" />
-
-    <Button
-        android:id="@+id/duration_submit"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:drawableLeft="@drawable/stopwatch_icon"
-        android:onClick="onDurationSubmitButtonClick"
-        android:text="Submit duration"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.043"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/duration_hours_input"
-        app:layout_constraintVertical_bias="0.314" />
+        app:layout_constraintVertical_bias="0.394" />
 
     <fragment
         android:id="@+id/fragment"
@@ -204,10 +112,10 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.828"
+        app:layout_constraintHorizontal_bias="0.853"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment"
-        app:layout_constraintVertical_bias="0.335" />
+        app:layout_constraintVertical_bias="0.279" />
 
     <TextView
         android:id="@+id/textView2"
@@ -224,58 +132,103 @@
         app:layout_constraintHorizontal_bias="0.906"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="340dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="-96dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="551dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="-1dp" />
-
     <EditText
         android:id="@+id/description_text_view"
         android:layout_width="310dp"
         android:layout_height="38dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/back"
         android:ems="10"
-        android:hint="Enter a description of activity"
+        android:hint="@string/description_text_hint"
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/duration_submit"
+        app:layout_constraintTop_toBottomOf="@+id/duration_grid"
         app:layout_constraintVertical_bias="0.0" />
+
+
+    <GridLayout
+        android:id="@+id/duration_grid"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/duration_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.094"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_pick_button"
+        app:layout_constraintVertical_bias="0.056">
+
+        <TextView
+            android:id="@+id/duration_label_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_row="0"
+
+            android:text="@string/enter_a_duration"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/duration_hours_input"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.093"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+        <EditText
+            android:id="@+id/duration_hours_input"
+            android:layout_width="140dp"
+            android:layout_height="24dp"
+            android:layout_column="0"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_row="1"
+            android:background="@drawable/back"
+            android:ems="10"
+            android:hint="hours"
+            android:inputType="number"
+            android:tooltipText="hours" />
+
+
+        <EditText
+            android:id="@+id/duration_input_minutes"
+            android:layout_width="140dp"
+            android:layout_height="24dp"
+            android:layout_column="0"
+            android:layout_marginBottom="4dp"
+            android:layout_marginStart="8dp"
+            android:layout_row="2"
+            android:background="@drawable/back"
+            android:ems="10"
+            android:hint="mins"
+            android:inputType="number"
+            android:tooltipText="minutes" />
+
+
+        <Button
+            android:id="@+id/duration_submit"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="0dp"
+            android:layout_row="3"
+            android:drawableLeft="@drawable/stopwatch_icon"
+            android:onClick="onDurationSubmitButtonClick"
+            android:text="Submit duration" />
+
+    </GridLayout>
 
     <Button
         android:id="@+id/exercise_submit"
@@ -283,17 +236,16 @@
         android:layout_width="342dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/holo_red_light"
         android:onClick="onSubmitActivityClicked"
         android:text="Submit Activity"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description_text_view"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.333" />
 
 
 </android.support.constraint.ConstraintLayout>

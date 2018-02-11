@@ -1,7 +1,12 @@
 package com.codeclan.example.fitnesstrackerapp.useractivity;
 
+import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.arch.persistence.room.util.StringUtil;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BaseTransientBottomBar;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -28,6 +34,7 @@ import org.w3c.dom.Text;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class AddNewExerciseActivity extends AppCompatActivity implements ActivitySelectFragment.OnActivitySelectedListener,
@@ -43,6 +50,9 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
     private TextView minutesDurationTextView;
     private Long minutesConvertedFromHours = 0L;
     private Long minutesEntered = 0L;
+    private List<View> allTextViews;
+    private ViewGroup viewGroup;
+    private View view;
     String description;
 
 
@@ -98,7 +108,6 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
 
     @Override
     public void onActivitySelected(Activity activity) {
-        Log.d("Selected type*******:", activity.toString());
         exerciseToAdd.setActivityId(activity.getId());
     }
 
@@ -152,15 +161,39 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
         exerciseToAdd.setEquipmentId(equipment.getId());
     }
 
+
     public void onSubmitActivityClicked(View view) {
-        User appUser = db.userDao().getAll().get(0);
-        exerciseToAdd.setUserId(appUser.getId());
-        Long rowId = db.userExerciseDao().insertUserExercise(exerciseToAdd);
-        exerciseToAdd.setId(rowId.intValue());
-        Toast toast = Toast.makeText(getApplicationContext(), "New exercise added", Toast.LENGTH_SHORT);
-        toast.show();
-        Intent intentView = new Intent(this, ExerciseActivity.class);
-        startActivity(intentView);
+        viewGroup = findViewById(android.R.id.content);
+        boolean isFormValidToSubmit = canFormBeSubmitted(viewGroup);
+        Log.d("Is Valid", String.valueOf(isFormValidToSubmit));
+        if (isFormValidToSubmit) {
+            User appUser = db.userDao().getAll().get(0);
+            exerciseToAdd.setUserId(appUser.getId());
+            Long rowId = db.userExerciseDao().insertUserExercise(exerciseToAdd);
+            exerciseToAdd.setId(rowId.intValue());
+            Toast toast = Toast.makeText(getApplicationContext(), "New exercise added", Toast.LENGTH_SHORT);
+            toast.show();
+            Intent intentView = new Intent(this, ExerciseActivity.class);
+            startActivity(intentView);
+        } else {
+            Snackbar mySnackbar = Snackbar.make(view, R.string.submit_error, Snackbar.LENGTH_LONG);
+            mySnackbar.show();
+        }
+
+    }
+
+    @SuppressLint("WrongConstant")
+    private boolean canFormBeSubmitted(ViewGroup group) {
+        view = group.getChildAt(0);
+        allTextViews = view.getFocusables(0);
+        for (View view : allTextViews) {
+            if (view instanceof TextView) {
+                String error = ((TextView) view).getError() == null ? null : ((TextView) view).getError().toString();
+                if (error != null) return false;
+
+            }
+        }
+        return true;
     }
 
     private void showTimePickerDialog(View view) {
@@ -182,7 +215,6 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length() != 0) {
-                    Log.d("In after text changed: ", "hours");
                     Integer hours = Integer.valueOf(String.valueOf(s));
                     minutesConvertedFromHours = calculateMinutesFromInput(hours);
                 } else {
@@ -233,7 +265,6 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
             public void afterTextChanged(Editable s) {
                 if (s.length() != 0) {
                     distance = Double.valueOf(String.valueOf(s));
-                    Log.d("Distance entered:", distance.toString());
                     exerciseToAdd.setDistance(distance);
                 }
             }

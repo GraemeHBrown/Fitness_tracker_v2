@@ -12,4 +12,6 @@
     <string name="view_activities">View activities</string>
     <string name="home">Home</string>
     <string name="title_activity_exercise_stats">ExerciseStatsActivity</string>
+    <string name="submit_error">Correct errors before the form can be submitted.</string>
+    <string name="description_text_hint">Enter a description of activity</string>
 </resources>
