@@ -7,11 +7,14 @@
     <string name="pick_date_and_time">Pick a start date and time</string>
     <string name="enter_a_duration">Enter a duration</string>
     <string name="title_activity_exercise_item">ExerciseItem</string>
-    <string name="no_equipment">no equipment selected</string>
+    <string name="no_equipment">(no equipment selected)</string>
     <string name="add_new_activity">Add new activity</string>
     <string name="view_activities">View activities</string>
     <string name="home">Home</string>
     <string name="title_activity_exercise_stats">ExerciseStatsActivity</string>
     <string name="submit_error">Correct errors before the form can be submitted.</string>
     <string name="description_text_hint">Enter a description of activity</string>
+    <string name="no_distance_selected">(no distance entered)</string>
+    <string name="duration_label_error">A duration must be set before submitting</string>
+    <string name="date_not_set_button_error">Must set date and time to submit an exercise</string>
 </resources>

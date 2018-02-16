@@ -48,8 +48,10 @@ public class UserExercise implements Serializable {
 
     private Long duration;
 
+    @Nullable
     private Double distance;
 
+    @Nullable
     private String description;
 
     @ColumnInfo(name = "equipment_id")

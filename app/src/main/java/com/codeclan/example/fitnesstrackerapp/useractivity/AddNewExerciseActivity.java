@@ -1,11 +1,8 @@
 package com.codeclan.example.fitnesstrackerapp.useractivity;
 
 import android.annotation.SuppressLint;
-import android.app.Notification;
-import android.arch.persistence.room.util.StringUtil;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -29,8 +27,6 @@ import com.codeclan.example.fitnesstrackerapp.activity.ExerciseActivity;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
 import com.codeclan.example.fitnesstrackerapp.user.User;
-
-import org.w3c.dom.Text;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -54,6 +50,9 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
     private ViewGroup viewGroup;
     private View view;
     String description;
+    private boolean hasDurationBeenSubmitted;
+    private boolean dateSet;
+    private boolean dateAndTimeSet;
 
 
     @Override
@@ -122,6 +121,7 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         calendar.set(year, month, dayOfMonth);
         showTimePickerDialog(view);
+        dateSet = true;
     }
 
     @Override
@@ -133,12 +133,16 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
         Toast toast = Toast.makeText(getApplicationContext(), selected + " selected date and time", Toast.LENGTH_SHORT);
         toast.show();
         exerciseToAdd.setStartDateAndTime(calendar.getTime());
+        dateAndTimeSet = true;
+        Button dateAndTimePick = findViewById(R.id.date_pick_button);
+        dateAndTimePick.setError(null);
 
     }
 
     public void onDurationSubmitButtonClick(View view) {
         TextView minsView = findViewById(R.id.duration_input_minutes);
         TextView hoursView = findViewById(R.id.duration_hours_input);
+        TextView durationLabel = findViewById(R.id.duration_label_text_view);
         String minsEnteredString = minsView.getText().toString();
         if (!minsEnteredString.isEmpty()) {
             minutesEntered = Long.valueOf(minsView.getText().toString());
@@ -149,9 +153,12 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
                 Toast toast = Toast.makeText(getApplicationContext(), "Total duration: " + minutesForCalc + " (mins)", Toast.LENGTH_SHORT);
                 toast.show();
                 exerciseToAdd.setDuration(minutesForCalc);
+                hasDurationBeenSubmitted = true;
+                durationLabel.setError(null);
             }
         } else {
             minsView.setError(minsView.getHint() + " is required!");
+            hasDurationBeenSubmitted = false;
         }
 
     }
@@ -159,7 +166,7 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
     @Override
     public void onEquipmentSelected(Equipment equipment) {
         Log.d("Equip ID in activity: ", String.valueOf(equipment.getId()));
-        if(equipment.getId()!=0){
+        if (equipment.getId() != 0) {
             exerciseToAdd.setEquipmentId(equipment.getId());
         }
 
@@ -168,9 +175,14 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
 
     public void onSubmitActivityClicked(View view) {
         viewGroup = findViewById(android.R.id.content);
-        boolean isFormValidToSubmit = canFormBeSubmitted(viewGroup);
-        Log.d("Is Valid", String.valueOf(isFormValidToSubmit));
-        if (isFormValidToSubmit) {
+        if (!dateAndTimeSet) {
+            setErrorOnPickStartDateAndTime();
+        }
+        if (!hasDurationBeenSubmitted) {
+            setErrorInDurationArea();
+        }
+        boolean hasNoErrors = noErrorsOnFields(viewGroup);
+        if (hasNoErrors && hasDurationBeenSubmitted) {
             User appUser = db.userDao().getAll().get(0);
             exerciseToAdd.setUserId(appUser.getId());
             Long rowId = db.userExerciseDao().insertUserExercise(exerciseToAdd);
@@ -186,8 +198,22 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
 
     }
 
+    private void setErrorOnPickStartDateAndTime() {
+        //TODO set error message on date and time button.
+        Log.d("Date and time error", "setErrorOnPickStartDateAndTime: ");
+        Button dateAndTimePick = findViewById(R.id.date_pick_button);
+        dateAndTimePick.requestFocus();
+        dateAndTimePick.setError(getString(R.string.date_not_set_button_error));
+    }
+
+    private void setErrorInDurationArea() {
+        TextView durationLabel = findViewById(R.id.duration_label_text_view);
+        durationLabel.requestFocus();
+        durationLabel.setError(getString(R.string.duration_label_error));
+    }
+
     @SuppressLint("WrongConstant")
-    private boolean canFormBeSubmitted(ViewGroup group) {
+    private boolean noErrorsOnFields(ViewGroup group) {
         view = group.getChildAt(0);
         allTextViews = view.getFocusables(0);
         for (View view : allTextViews) {

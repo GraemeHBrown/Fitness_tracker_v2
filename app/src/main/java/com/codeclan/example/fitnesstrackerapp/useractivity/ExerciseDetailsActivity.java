@@ -50,7 +50,12 @@ public class ExerciseDetailsActivity extends AppCompatActivity {
         duration.setText(String.valueOf(exercise.getDuration()));
 
         TextView distance = findViewById(R.id.exercise_distance);
-        distance.setText(exercise.getDistance().toString());
+        if(exercise.getDistance()!=null){
+            distance.setText(exercise.getDistance().toString());
+        } else {
+            distance.setText(R.string.no_distance_selected);
+        }
+
 
         TextView description = findViewById(R.id.exercise_description);
         description.setText(exercise.getDescription());

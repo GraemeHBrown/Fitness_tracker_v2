@@ -48,14 +48,18 @@ public class UserExerciseListAdapter extends ArrayAdapter<UserExercise> {
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy h:mm aa");
         String formattedDate = df.format(currentExercise.getStartDateAndTime());
         startDateAndTime.setText(formattedDate);
-//        startDateAndTime.setText(currentExercise.getStartDateAndTime().toString());
 
         TextView distance = listItemView.findViewById(R.id.distance_text_view);
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format(Locale.UK,
-                "%.2f", currentExercise.getDistance()));
-        sb.append(" KM's");
-        distance.setText(sb);
+        if(currentExercise.getDistance()!=null){
+            sb.append(String.format(Locale.UK,
+                    "%.2f", currentExercise.getDistance()));
+            sb.append(" KM's");
+            distance.setText(sb);
+        } else {
+            distance.setText(R.string.no_distance_selected);
+        }
+
 
         TextView description = listItemView.findViewById(R.id.description_text_view);
         description.setText(currentExercise.getDescription());

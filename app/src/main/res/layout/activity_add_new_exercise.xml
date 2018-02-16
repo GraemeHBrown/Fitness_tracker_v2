@@ -62,6 +62,7 @@
     <Button
         android:id="@+id/date_pick_button"
         style="@style/Widget.AppCompat.Button.Small"
+        android:focusableInTouchMode="true"
         android:layout_width="161dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -167,6 +168,9 @@
 
         <TextView
             android:id="@+id/duration_label_text_view"
+            android:focusableInTouchMode="true"
+            android:clickable="true"
+            android:focusable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="0"
