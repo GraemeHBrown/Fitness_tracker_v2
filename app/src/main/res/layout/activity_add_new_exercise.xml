@@ -62,16 +62,15 @@
     <Button
         android:id="@+id/date_pick_button"
         style="@style/Widget.AppCompat.Button.Small"
-        android:focusableInTouchMode="true"
-        android:layout_width="161dp"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="8dp"
-        android:background="@android:color/transparent"
-        android:backgroundTint="@android:color/holo_red_light"
+        android:background="@drawable/date_time_pick_background"
         android:drawableLeft="@drawable/datepicker_icon"
+        android:focusableInTouchMode="true"
         android:onClick="showDatePickerDialog"
         android:text="@string/pick_date_and_time"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -97,42 +96,6 @@
         app:layout_constraintStart_toEndOf="@+id/activity_select_fragment"
         app:layout_constraintTop_toBottomOf="@+id/add_new_activity_header_textview"
         app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/distance_input"
-        android:layout_width="100dp"
-        android:layout_height="24dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/back"
-        android:ems="10"
-        android:hint="@string/distance_input_optional"
-        android:inputType="numberDecimal"
-        android:textSize="14sp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.853"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment"
-        app:layout_constraintVertical_bias="0.279" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Enter a distance"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/distance_input"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.906"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/description_text_view"
@@ -170,9 +133,6 @@
 
         <TextView
             android:id="@+id/duration_label_text_view"
-            android:focusableInTouchMode="true"
-            android:clickable="true"
-            android:focusable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="0"
@@ -180,9 +140,12 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_row="0"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
 
             android:text="@string/enter_a_duration"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/duration_hours_input"
             app:layout_constraintEnd_toEndOf="parent"
@@ -224,13 +187,16 @@
         <Button
             android:id="@+id/duration_submit"
             style="@style/Widget.AppCompat.Button.Borderless"
+            android:background="@drawable/duration_submit_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="0"
             android:layout_marginBottom="8dp"
-            android:layout_marginStart="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="8dp"
             android:layout_row="3"
             android:drawableLeft="@drawable/stopwatch_icon"
+
             android:onClick="onDurationSubmitButtonClick"
             android:text="Submit duration" />
 
@@ -252,6 +218,63 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description_text_view"
         app:layout_constraintVertical_bias="0.333" />
+
+    <GridLayout
+        android:layout_width="140dp"
+        android:layout_height="180dp"
+        android:layout_marginBottom="104dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/duration_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.987">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_marginBottom="12dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_row="0"
+            android:text="Enter a distance"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/distance_input"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.906"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/distance_input"
+            android:layout_width="100dp"
+            android:layout_height="24dp"
+            android:layout_column="0"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_row="1"
+            android:background="@drawable/back"
+            android:ems="10"
+            android:hint="@string/distance_input_optional"
+            android:inputType="numberDecimal"
+            android:textSize="14sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.853"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment"
+            app:layout_constraintVertical_bias="0.279" />
+
+    </GridLayout>
 
 
 </android.support.constraint.ConstraintLayout>
