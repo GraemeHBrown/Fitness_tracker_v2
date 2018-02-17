@@ -18,4 +18,5 @@
     <string name="duration_label_error">A duration must be set before submitting</string>
     <string name="date_not_set_button_error">Must set date and time to submit an exercise</string>
     <string name="distance_input_optional">KM\'s (optional)</string>
+    <string name="activity_spinner_label">Select an activity</string>
 </resources>
