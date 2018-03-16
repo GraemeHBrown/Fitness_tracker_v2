@@ -63,7 +63,7 @@ public class ExerciseDetailsActivity extends AppCompatActivity {
         TextView equipment = findViewById(R.id.equipment_description);
 
         if (exercise.getEquipmentId() != null) {
-            Equipment foundEquipment = db.equipmentDao().findByID(exercise.getEquipmentId());
+            Equipment foundEquipment = db.equipmentModel().findByID(exercise.getEquipmentId());
             equipment.setText(foundEquipment.getFullEquipmentName());
         } else {
             equipment.setText(R.string.no_equipment);

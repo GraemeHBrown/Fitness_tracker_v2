@@ -1,5 +1,6 @@
 package com.codeclan.example.fitnesstrackerapp.useractivity;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,8 @@ public class EquipmentSelectFragment extends Fragment implements AdapterView.OnI
     private OnEquipmentSelectedListener mListener;
 
     private Equipment noEquipmentOption;
+
+//    public final LiveData<List<Equipment>> equipForUser;
 
     public EquipmentSelectFragment() {
         // Required empty public constructor
@@ -60,7 +63,7 @@ public class EquipmentSelectFragment extends Fragment implements AdapterView.OnI
         User appUser = db.userDao().getAll().get(0);
         noEquipmentOption = new Equipment();
         noEquipmentOption.setEquipmentModel("No equipment");
-        List<Equipment> equipForUser = db.equipmentDao().findAllEquipmentForUser(appUser.getId());
+        List<Equipment> equipForUser = db.equipmentModel().findAllEquipmentForUser(appUser.getId());
         equipForUser.add(noEquipmentOption);
         return equipForUser;
     }

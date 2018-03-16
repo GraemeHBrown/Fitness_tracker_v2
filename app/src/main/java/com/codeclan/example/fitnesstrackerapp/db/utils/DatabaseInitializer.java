@@ -59,7 +59,7 @@ public class DatabaseInitializer {
         equipment.setEquipmentType(equipmentType);
         equipment.setEquipmentModel(equipmentModel);
         equipment.setUserId(user.getId());
-        Long rowId = db.equipmentDao().insertEquipment(equipment);
+        Long rowId = db.equipmentModel().insertEquipment(equipment);
         equipment.setId(rowId.intValue());
         return equipment;
     }
@@ -87,7 +87,7 @@ public class DatabaseInitializer {
 
     private static void populateWithTestData(AppDatabase db) {
         db.userExerciseDao().deleteAll();
-        db.equipmentDao().deleteAll();
+        db.equipmentModel().deleteAll();
         db.activityDao().deleteAll();
         db.userDao().deleteAll();
         User user1 = addUser(db, "Lance", "Armstrong", 47);

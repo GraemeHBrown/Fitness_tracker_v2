@@ -24,7 +24,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract UserDao userDao();
     public abstract ActivityDao activityDao();
-    public abstract EquipmentDao equipmentDao();
+    public abstract EquipmentDao equipmentModel();
     public abstract UserExerciseDao userExerciseDao();
 
     public static AppDatabase getInMemoryDatabase(Context context) {
