@@ -1,6 +1,5 @@
 package com.codeclan.example.fitnesstrackerapp.useractivity;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
@@ -14,16 +13,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.codeclan.example.fitnesstrackerapp.R;
-import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
 import com.codeclan.example.fitnesstrackerapp.equipment.EquipmentForUserViewModel;
-import com.codeclan.example.fitnesstrackerapp.user.User;
 
 import java.util.List;
 
-public class EquipmentSelectFragment extends Fragment implements AdapterView.OnItemSelectedListener{
+public class EquipmentSelectFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    private AppDatabase db;
 
     private OnEquipmentSelectedListener mListener;
 
@@ -39,7 +35,6 @@ public class EquipmentSelectFragment extends Fragment implements AdapterView.OnI
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db = AppDatabase.getInMemoryDatabase(getContext());
         userEquipModel = ViewModelProviders.of(this).get(EquipmentForUserViewModel.class);
     }
 
