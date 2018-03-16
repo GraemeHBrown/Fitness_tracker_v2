@@ -99,10 +99,9 @@ public class MainActivity extends AppCompatActivity {
     private void fetchData() {
         // Note: this kind of logic should not be in an activity.
         StringBuilder sb = new StringBuilder();
-        User user = db.userDao().getAll().get(0);
 
         sb.append(String.format(Locale.UK,
-                "%s's Exercise Tracker", user.getFirstName()));
+                "Graeme's Exercise Tracker"));
 
         welcomeMessage.setText(sb);
     }
