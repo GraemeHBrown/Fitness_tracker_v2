@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onViewStatsButtonClick(View button){
+    public void onViewStatsButtonClick(View button) {
         Intent intent = new Intent(this, ExerciseStatsActivity.class);
         startActivity(intent);
     }
@@ -97,12 +97,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchData() {
-        // Note: this kind of logic should not be in an activity.
         StringBuilder sb = new StringBuilder();
-
         sb.append(String.format(Locale.UK,
                 "Graeme's Exercise Tracker"));
-
         welcomeMessage.setText(sb);
     }
 }
