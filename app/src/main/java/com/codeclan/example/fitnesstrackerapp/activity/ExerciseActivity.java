@@ -50,7 +50,7 @@ public class ExerciseActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.exercise_activity_toolbar);
         setSupportActionBar(myToolbar);
 
-        // Get a support ActionBar corresponding to this toolbar
+
         ActionBar ab = getSupportActionBar();
 
         // Enable the Up button
