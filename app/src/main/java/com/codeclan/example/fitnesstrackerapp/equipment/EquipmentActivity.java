@@ -33,7 +33,7 @@ public class EquipmentActivity extends AppCompatActivity {
         User user = db.userDao().findUserById(1);
         String userDetails = user.getFirstName() + "'s equipment";
         userDetailsTextView.setText(userDetails);
-        List<Equipment> equipments = (List<Equipment>) db.equipmentModel().findAllEquipmentForUser(user.getId());
+        List<Equipment> equipments = db.equipmentModel().findAllEquipmentForUser(user.getId());
         for (Equipment equipment : equipments) {
             sb.append(String.format(Locale.UK,
                     "%s, %s, %s, (user_id:%d) \n", equipment.getEquipmentMake(),

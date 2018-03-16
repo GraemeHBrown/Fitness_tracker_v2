@@ -1,6 +1,7 @@
 package com.codeclan.example.fitnesstrackerapp.useractivity;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.widget.Spinner;
 import com.codeclan.example.fitnesstrackerapp.R;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
+import com.codeclan.example.fitnesstrackerapp.equipment.EquipmentForUserViewModel;
 import com.codeclan.example.fitnesstrackerapp.user.User;
 
 import java.util.List;
@@ -27,7 +29,7 @@ public class EquipmentSelectFragment extends Fragment implements AdapterView.OnI
 
     private Equipment noEquipmentOption;
 
-//    public final LiveData<List<Equipment>> equipForUser;
+    private EquipmentForUserViewModel userEquipModel;
 
     public EquipmentSelectFragment() {
         // Required empty public constructor
@@ -38,6 +40,7 @@ public class EquipmentSelectFragment extends Fragment implements AdapterView.OnI
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = AppDatabase.getInMemoryDatabase(getContext());
+        userEquipModel = ViewModelProviders.of(this).get(EquipmentForUserViewModel.class);
     }
 
     @Override
@@ -60,10 +63,9 @@ public class EquipmentSelectFragment extends Fragment implements AdapterView.OnI
     }
 
     private List<Equipment> fetchEquipment() {
-        User appUser = db.userDao().getAll().get(0);
         noEquipmentOption = new Equipment();
         noEquipmentOption.setEquipmentModel("No equipment");
-        List<Equipment> equipForUser = db.equipmentModel().findAllEquipmentForUser(appUser.getId());
+        List<Equipment> equipForUser = userEquipModel.userEquipment;
         equipForUser.add(noEquipmentOption);
         return equipForUser;
     }
