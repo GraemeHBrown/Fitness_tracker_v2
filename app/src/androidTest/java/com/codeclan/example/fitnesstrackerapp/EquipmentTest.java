@@ -29,8 +29,8 @@ public class EquipmentTest {
 
     private EquipmentDao testEquipmentDao;
     private TestDatabase testDb;
-    private User user1;
-    private Equipment equipment;
+    private User user1, user2;
+    private Equipment equipment, equipment2;
 
     @Before
     public void createDb() {
@@ -38,7 +38,9 @@ public class EquipmentTest {
         testDb = Room.inMemoryDatabaseBuilder(context, TestDatabase.class).build();
         testEquipmentDao = testDb.equipmentDao();
         user1 = TestUtil.addUser(testDb, "Lance", "Armstrong", 47);
+        user2 = TestUtil.addUser(testDb, "Graeme", "Brown", 46);
         equipment = TestUtil.addEquipment(testDb,"Trek","Road Bike","TCR", user1);
+        equipment2 = TestUtil.addEquipment(testDb,"Trek","Mtn Bike","Fuel", user2);
 
     }
 

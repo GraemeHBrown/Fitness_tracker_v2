@@ -1,5 +1,6 @@
 package com.codeclan.example.fitnesstrackerapp.useractivity;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,16 +14,13 @@ import android.widget.Spinner;
 
 import com.codeclan.example.fitnesstrackerapp.R;
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
-import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
+import com.codeclan.example.fitnesstrackerapp.activity.ActivityViewModel;
 
 import java.util.List;
 
-
 public class ActivitySelectFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    private AppDatabase db;
-
-
+    private ActivityViewModel activityViewModel;
     private OnActivitySelectedListener activitySelectedListener;
 
     public ActivitySelectFragment() {
@@ -33,7 +31,7 @@ public class ActivitySelectFragment extends Fragment implements AdapterView.OnIt
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db = AppDatabase.getInMemoryDatabase(getContext());
+        activityViewModel = ViewModelProviders.of(this).get(ActivityViewModel.class);
     }
 
     @Override
@@ -70,8 +68,7 @@ public class ActivitySelectFragment extends Fragment implements AdapterView.OnIt
     }
 
     private List<Activity> fetchActivityData() {
-        List<Activity> activities = db.activityDao().getAll();
-        return activities;
+        return activityViewModel.activities;
     }
 
     @Override

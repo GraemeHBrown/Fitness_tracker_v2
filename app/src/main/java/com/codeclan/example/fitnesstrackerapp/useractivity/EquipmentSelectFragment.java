@@ -22,7 +22,6 @@ public class EquipmentSelectFragment extends Fragment implements AdapterView.OnI
 
 
     private OnEquipmentSelectedListener mListener;
-
     private Equipment noEquipmentOption;
 
     private EquipmentForUserViewModel userEquipModel;

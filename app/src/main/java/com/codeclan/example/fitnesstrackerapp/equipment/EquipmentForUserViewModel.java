@@ -15,21 +15,14 @@ import java.util.List;
 
 public class EquipmentForUserViewModel extends AndroidViewModel {
 
-   public final List<Equipment> userEquipment;
-
-    private AppDatabase db;
+    public final List<Equipment> userEquipment;
 
     public EquipmentForUserViewModel(@NonNull Application application) {
         super(application);
-        createDb();
-        //TODO look at how to handle users current app user??
+        AppDatabase db = AppDatabase.getInMemoryDatabase(this.getApplication());
+        //TODO look at how to handle current app user??
         User appUser = db.userDao().getAll().get(0);
         userEquipment = db.equipmentModel().findAllEquipmentForUser(appUser.getId());
-    }
-
-    private void createDb() {
-        db = AppDatabase.getInMemoryDatabase(this.getApplication());
-
     }
 
 

@@ -11,6 +11,8 @@ import com.codeclan.example.fitnesstrackerapp.user.User;
 import java.util.List;
 import java.util.Locale;
 
+/*Note:  this isn't currently being used in the app but could form basis of separate view /admin equipment page for the user*/
+
 public class EquipmentActivity extends AppCompatActivity {
 
     private AppDatabase db;
