@@ -8,6 +8,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
+import com.codeclan.example.fitnesstrackerapp.db.converter.Converters;
 import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
 import com.codeclan.example.fitnesstrackerapp.user.User;
 import com.codeclan.example.fitnesstrackerapp.useractivity.UserExercise;
