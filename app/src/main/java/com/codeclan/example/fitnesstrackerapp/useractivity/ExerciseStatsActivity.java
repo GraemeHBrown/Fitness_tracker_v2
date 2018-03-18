@@ -30,8 +30,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class ExerciseStatsActivity extends AppCompatActivity {
     AppDatabase db;
@@ -126,7 +124,7 @@ public class ExerciseStatsActivity extends AppCompatActivity {
         Map<String, Long> typeMap = new HashMap<>();
         for (UserExercise exercise : allExercise) {
             int activityId = exercise.getActivityId();
-            Activity foundActivity = db.activityDao().findByID(activityId);
+            Activity foundActivity = db.activityModel().findByID(activityId);
             activityTypes.add(foundActivity.getActivityType());
         }
 

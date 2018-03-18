@@ -19,6 +19,6 @@ public class ActivityViewModel extends AndroidViewModel {
         super(application);
 
         AppDatabase db = AppDatabase.getInMemoryDatabase(this.getApplication());
-        activities = db.activityDao().getAll();
+        activities = db.activityModel().getAll();
     }
 }

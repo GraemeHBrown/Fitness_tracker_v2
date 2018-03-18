@@ -19,7 +19,7 @@ import com.codeclan.example.fitnesstrackerapp.useractivity.ExerciseStatsActivity
 
 import java.util.Locale;
 
-
+//TODO look at putting current user into saved instance?
 public class MainActivity extends AppCompatActivity {
 
     AppDatabase db;

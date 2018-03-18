@@ -36,7 +36,7 @@ public class ExerciseDetailsActivity extends AppCompatActivity {
         UserExercise exercise = (UserExercise) intent.getSerializableExtra("exercise");
 
         TextView exerciseType = findViewById(R.id.exercise_details_type);
-        Activity foundActivity = db.activityDao().findByID(exercise.getActivityId());
+        Activity foundActivity = db.activityModel().findByID(exercise.getActivityId());
         String activityType = foundActivity.getActivityType();
         exerciseType.setText(foundActivity.getActivityType());
 

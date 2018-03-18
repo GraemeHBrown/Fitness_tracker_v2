@@ -23,7 +23,7 @@ public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase INSTANCE;
 
     public abstract UserDao userDao();
-    public abstract ActivityDao activityDao();
+    public abstract ActivityDao activityModel();
     public abstract EquipmentDao equipmentModel();
     public abstract UserExerciseDao userExerciseDao();
 

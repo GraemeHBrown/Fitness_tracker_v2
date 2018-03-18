@@ -2,7 +2,6 @@ package com.codeclan.example.fitnesstrackerapp.useractivity;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +38,7 @@ public class UserExerciseListAdapter extends ArrayAdapter<UserExercise> {
 
         UserExercise currentExercise = getItem(position);
         TextView activityType = listItemView.findViewById(R.id.activity_type_text_view);
-        Activity currentActivity = db.activityDao().findByID(currentExercise.getActivityId());
+        Activity currentActivity = db.activityModel().findByID(currentExercise.getActivityId());
         String typeString = currentActivity.getActivityType();
 
         activityType.setText(typeString);

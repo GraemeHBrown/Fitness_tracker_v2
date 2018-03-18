@@ -1,47 +1,39 @@
 package com.codeclan.example.fitnesstrackerapp.activity;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.codeclan.example.fitnesstrackerapp.MainActivity;
 import com.codeclan.example.fitnesstrackerapp.R;
-import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
-import com.codeclan.example.fitnesstrackerapp.db.utils.DatabaseInitializer;
-import com.codeclan.example.fitnesstrackerapp.user.User;
 import com.codeclan.example.fitnesstrackerapp.useractivity.AddNewExerciseActivity;
 import com.codeclan.example.fitnesstrackerapp.useractivity.ExerciseDetailsActivity;
+import com.codeclan.example.fitnesstrackerapp.useractivity.ExerciseListViewModel;
 import com.codeclan.example.fitnesstrackerapp.useractivity.UserExercise;
 import com.codeclan.example.fitnesstrackerapp.useractivity.UserExerciseListAdapter;
 
-import java.io.Serializable;
 import java.util.List;
-import java.util.Locale;
 
+//TODO to create an ExerciseListViewModel to provide all exercise details for user.
 public class ExerciseActivity extends AppCompatActivity {
 
-    private AppDatabase db;
-    private TextView exerciseTextView;
     List<UserExercise> exerciseForUser;
+    private ExerciseListViewModel exerciseListViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        db = AppDatabase.getInMemoryDatabase(getApplicationContext());
-
         setContentView(R.layout.exercise_list_view);
 
-        User appUser = db.userDao().getAll().get(0);
-        exerciseForUser = db.userExerciseDao().findAllExerciseForUser(appUser.getId());
+        exerciseListViewModel = ViewModelProviders.of(this).get(ExerciseListViewModel.class);
+        exerciseForUser = exerciseListViewModel.allExerciseForUser;
 
         UserExerciseListAdapter exerciseListAdapter = new UserExerciseListAdapter(this, exerciseForUser);
         ListView exerciseListView = findViewById(R.id.exercise_list_view);

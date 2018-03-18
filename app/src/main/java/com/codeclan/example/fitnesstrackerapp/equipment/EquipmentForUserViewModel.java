@@ -20,7 +20,7 @@ public class EquipmentForUserViewModel extends AndroidViewModel {
     public EquipmentForUserViewModel(@NonNull Application application) {
         super(application);
         AppDatabase db = AppDatabase.getInMemoryDatabase(this.getApplication());
-        //TODO look at how to handle current app user??
+        //TODO look at how to handle current app user - saved instance state??
         User appUser = db.userDao().getAll().get(0);
         userEquipment = db.equipmentModel().findAllEquipmentForUser(appUser.getId());
     }

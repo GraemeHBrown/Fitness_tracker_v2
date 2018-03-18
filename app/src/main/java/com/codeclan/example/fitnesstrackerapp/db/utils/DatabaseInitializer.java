@@ -80,7 +80,7 @@ public class DatabaseInitializer {
         Activity activity = new Activity();
         activity.setActivityName(name);
         activity.setActivityType(type);
-        Long rowId = db.activityDao().insertActivity(activity);
+        Long rowId = db.activityModel().insertActivity(activity);
         activity.setId(rowId.intValue());
         return activity;
     }
@@ -88,7 +88,7 @@ public class DatabaseInitializer {
     private static void populateWithTestData(AppDatabase db) {
         db.userExerciseDao().deleteAll();
         db.equipmentModel().deleteAll();
-        db.activityDao().deleteAll();
+        db.activityModel().deleteAll();
         db.userDao().deleteAll();
         User user1 = addUser(db, "Lance", "Armstrong", 47);
         Activity roadBiking = addActivity(db, "Cycling", "Road Biking");
