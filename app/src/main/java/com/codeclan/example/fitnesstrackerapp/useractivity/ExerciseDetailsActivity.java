@@ -1,5 +1,6 @@
 package com.codeclan.example.fitnesstrackerapp.useractivity;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -15,28 +16,29 @@ import com.codeclan.example.fitnesstrackerapp.R;
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.activity.ActivityImages;
 import com.codeclan.example.fitnesstrackerapp.activity.ExerciseActivity;
-import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
 
 import java.text.SimpleDateFormat;
 
 public class ExerciseDetailsActivity extends AppCompatActivity {
 
-    private AppDatabase db;
     private ActivityImages actImages;
+    private ExerciseDetailsViewModel exerciseDetailsViewModel;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db = AppDatabase.getInMemoryDatabase(getApplicationContext());
+        exerciseDetailsViewModel = ViewModelProviders.of(this).get(ExerciseDetailsViewModel.class);
+
+
         setContentView(R.layout.activity_exercise_details);
 
         Intent intent = getIntent();
         UserExercise exercise = (UserExercise) intent.getSerializableExtra("exercise");
 
         TextView exerciseType = findViewById(R.id.exercise_details_type);
-        Activity foundActivity = db.activityModel().findByID(exercise.getActivityId());
+        Activity foundActivity = exerciseDetailsViewModel.getActivityForExercise(exercise.getActivityId());
         String activityType = foundActivity.getActivityType();
         exerciseType.setText(foundActivity.getActivityType());
 
@@ -63,7 +65,7 @@ public class ExerciseDetailsActivity extends AppCompatActivity {
         TextView equipment = findViewById(R.id.equipment_description);
 
         if (exercise.getEquipmentId() != null) {
-            Equipment foundEquipment = db.equipmentModel().findByID(exercise.getEquipmentId());
+            Equipment foundEquipment = exerciseDetailsViewModel.getEquipmentForExercise(exercise.getEquipmentId());
             equipment.setText(foundEquipment.getFullEquipmentName());
         } else {
             equipment.setText(R.string.no_equipment);

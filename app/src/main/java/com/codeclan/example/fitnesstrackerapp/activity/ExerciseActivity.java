@@ -21,7 +21,6 @@ import com.codeclan.example.fitnesstrackerapp.useractivity.UserExerciseListAdapt
 
 import java.util.List;
 
-//TODO to create an ExerciseListViewModel to provide all exercise details for user.
 public class ExerciseActivity extends AppCompatActivity {
 
     List<UserExercise> exerciseForUser;
