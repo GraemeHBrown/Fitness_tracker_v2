@@ -1,6 +1,7 @@
 package com.codeclan.example.fitnesstrackerapp.useractivity;
 
 import android.annotation.TargetApi;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -18,8 +19,7 @@ import com.codeclan.example.fitnesstrackerapp.MainActivity;
 import com.codeclan.example.fitnesstrackerapp.R;
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.activity.ExerciseActivity;
-import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
-import com.codeclan.example.fitnesstrackerapp.user.User;
+import com.codeclan.example.fitnesstrackerapp.viewmodel.ExerciseStatsViewModel;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.ValueDependentColor;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
@@ -31,9 +31,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class ExerciseStatsActivity extends AppCompatActivity {
-    AppDatabase db;
     private List<UserExercise> allExercise;
+    private ExerciseStatsViewModel statsViewModel;
     TableLayout layout;
     TableRow tableRow;
     Map<String, Long> exerciseCounts;
@@ -41,18 +42,18 @@ public class ExerciseStatsActivity extends AppCompatActivity {
     ArrayList<String> labels;
     ArrayList<Long> values;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        statsViewModel = ViewModelProviders.of(this).get(ExerciseStatsViewModel.class);
         setContentView(R.layout.activity_exercise_stats);
         Toolbar toolbar = (Toolbar) findViewById(R.id.stats_activity_toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
 
 
-        db = AppDatabase.getInMemoryDatabase(getApplicationContext());
-        User appUser = db.userDao().getAll().get(0);
-        allExercise = db.userExerciseDao().findAllExerciseForUser(appUser.getId());
+        allExercise = statsViewModel.getAllExerciseForUser();
         exerciseCounts = getExerciseCounts(allExercise);
         layout = findViewById(R.id.activity_count);
         addDataToTable();
@@ -123,8 +124,7 @@ public class ExerciseStatsActivity extends AppCompatActivity {
         ArrayList<String> activityTypes = new ArrayList<>();
         Map<String, Long> typeMap = new HashMap<>();
         for (UserExercise exercise : allExercise) {
-            int activityId = exercise.getActivityId();
-            Activity foundActivity = db.activityModel().findByID(activityId);
+            Activity foundActivity = statsViewModel.getActivityForExercise(exercise.getActivityId());
             activityTypes.add(foundActivity.getActivityType());
         }
 

@@ -22,7 +22,6 @@ import java.text.SimpleDateFormat;
 
 public class ExerciseDetailsActivity extends AppCompatActivity {
 
-    private ActivityImages actImages;
     private ExerciseDetailsViewModel exerciseDetailsViewModel;
 
 
