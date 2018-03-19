@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.codeclan.example.fitnesstrackerapp.R;
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.activity.ActivityImages;
-import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -21,24 +20,22 @@ import java.util.Locale;
 /**
  * Created by graemebrown on 30/01/2018.
  */
-
 public class UserExerciseListAdapter extends ArrayAdapter<UserExercise> {
 
-    private AppDatabase db;
+    private final ExerciseListViewModel exerciseListViewModel;
 
-    public UserExerciseListAdapter(@NonNull Context context, List<UserExercise> exercise) {
+    public UserExerciseListAdapter(@NonNull Context context, List<UserExercise> exercise, ExerciseListViewModel exerciseListViewModel) {
         super(context, 0, exercise);
-        db = AppDatabase.getInMemoryDatabase(context);
+        this.exerciseListViewModel = exerciseListViewModel;
     }
 
     public View getView(int position, View listItemView, ViewGroup parent) {
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.exercise_item, parent, false);
         }
-
         UserExercise currentExercise = getItem(position);
         TextView activityType = listItemView.findViewById(R.id.activity_type_text_view);
-        Activity currentActivity = db.activityModel().findByID(currentExercise.getActivityId());
+        Activity currentActivity = exerciseListViewModel.getActivityDetailsForCurrentExercise(currentExercise.getActivityId());
         String typeString = currentActivity.getActivityType();
 
         activityType.setText(typeString);
@@ -50,7 +47,7 @@ public class UserExerciseListAdapter extends ArrayAdapter<UserExercise> {
 
         TextView distance = listItemView.findViewById(R.id.distance_text_view);
         StringBuilder sb = new StringBuilder();
-        if(currentExercise.getDistance()!=null){
+        if (currentExercise.getDistance() != null) {
             sb.append(String.format(Locale.UK,
                     "%.2f", currentExercise.getDistance()));
             sb.append(" KM's");

@@ -34,7 +34,7 @@ public class ExerciseActivity extends AppCompatActivity {
         exerciseListViewModel = ViewModelProviders.of(this).get(ExerciseListViewModel.class);
         exerciseForUser = exerciseListViewModel.allExerciseForUser;
 
-        UserExerciseListAdapter exerciseListAdapter = new UserExerciseListAdapter(this, exerciseForUser);
+        UserExerciseListAdapter exerciseListAdapter = new UserExerciseListAdapter(this, exerciseForUser, exerciseListViewModel);
         ListView exerciseListView = findViewById(R.id.exercise_list_view);
         exerciseListView.setAdapter(exerciseListAdapter);
 
