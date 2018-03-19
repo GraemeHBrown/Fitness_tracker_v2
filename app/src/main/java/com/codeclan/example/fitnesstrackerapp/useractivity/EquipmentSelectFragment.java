@@ -14,7 +14,7 @@ import android.widget.Spinner;
 
 import com.codeclan.example.fitnesstrackerapp.R;
 import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
-import com.codeclan.example.fitnesstrackerapp.equipment.EquipmentForUserViewModel;
+import com.codeclan.example.fitnesstrackerapp.viewmodel.EquipmentForUserViewModel;
 
 import java.util.List;
 

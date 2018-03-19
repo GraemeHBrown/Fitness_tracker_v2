@@ -1,9 +1,10 @@
-package com.codeclan.example.fitnesstrackerapp.activity;
+package com.codeclan.example.fitnesstrackerapp.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
 
+import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 
 import java.util.List;

@@ -14,7 +14,7 @@ import android.widget.Spinner;
 
 import com.codeclan.example.fitnesstrackerapp.R;
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
-import com.codeclan.example.fitnesstrackerapp.activity.ActivityViewModel;
+import com.codeclan.example.fitnesstrackerapp.viewmodel.ActivityViewModel;
 
 import java.util.List;
 

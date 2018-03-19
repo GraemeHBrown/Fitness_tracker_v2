@@ -1,10 +1,11 @@
-package com.codeclan.example.fitnesstrackerapp.equipment;
+package com.codeclan.example.fitnesstrackerapp.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
 
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
+import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
 import com.codeclan.example.fitnesstrackerapp.user.User;
 
 import java.util.List;
