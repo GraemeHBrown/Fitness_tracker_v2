@@ -15,7 +15,7 @@ import com.codeclan.example.fitnesstrackerapp.MainActivity;
 import com.codeclan.example.fitnesstrackerapp.R;
 import com.codeclan.example.fitnesstrackerapp.useractivity.AddNewExerciseActivity;
 import com.codeclan.example.fitnesstrackerapp.useractivity.ExerciseDetailsActivity;
-import com.codeclan.example.fitnesstrackerapp.useractivity.ExerciseListViewModel;
+import com.codeclan.example.fitnesstrackerapp.viewmodel.ExerciseListViewModel;
 import com.codeclan.example.fitnesstrackerapp.useractivity.UserExercise;
 import com.codeclan.example.fitnesstrackerapp.useractivity.UserExerciseListAdapter;
 

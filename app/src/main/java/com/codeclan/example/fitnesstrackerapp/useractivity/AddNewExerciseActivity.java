@@ -1,6 +1,7 @@
 package com.codeclan.example.fitnesstrackerapp.useractivity;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -24,19 +25,18 @@ import com.codeclan.example.fitnesstrackerapp.MainActivity;
 import com.codeclan.example.fitnesstrackerapp.R;
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.activity.ExerciseActivity;
-import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
-import com.codeclan.example.fitnesstrackerapp.user.User;
+import com.codeclan.example.fitnesstrackerapp.viewmodel.AddNewExerciseActivityViewModel;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+
 public class AddNewExerciseActivity extends AppCompatActivity implements ActivitySelectFragment.OnActivitySelectedListener,
         DateSelectFragment.OnDateSetListener, TimeSelectFragment.OnTimeSelectListener, EquipmentSelectFragment.OnEquipmentSelectedListener {
 
-    private AppDatabase db;
     private Locale locale;
     final Calendar calendar = Calendar.getInstance(locale);
     private TextView hourDurationTextView;
@@ -48,17 +48,16 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
     private Long minutesEntered = 0L;
     private List<View> allTextViews;
     private ViewGroup viewGroup;
-    private View view;
     String description;
     private boolean hasDurationBeenSubmitted;
     private boolean dateSet;
     private boolean dateAndTimeSet;
-
+    private AddNewExerciseActivityViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db = AppDatabase.getInMemoryDatabase(getApplicationContext());
+        viewModel = ViewModelProviders.of(this).get(AddNewExerciseActivityViewModel.class);
         exerciseToAdd = new UserExercise();
         setContentView(R.layout.activity_add_new_exercise);
         locale = getResources().getConfiguration().locale;
@@ -183,10 +182,7 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
         }
         boolean hasNoErrors = noErrorsOnFields(viewGroup);
         if (hasNoErrors && hasDurationBeenSubmitted) {
-            User appUser = db.userDao().getAll().get(0);
-            exerciseToAdd.setUserId(appUser.getId());
-            Long rowId = db.userExerciseDao().insertUserExercise(exerciseToAdd);
-            exerciseToAdd.setId(rowId.intValue());
+            viewModel.doInsertAndSetIds(exerciseToAdd);
             Toast toast = Toast.makeText(getApplicationContext(), "New exercise added", Toast.LENGTH_SHORT);
             toast.show();
             Intent intentView = new Intent(this, ExerciseActivity.class);
@@ -214,8 +210,8 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
 
     @SuppressLint("WrongConstant")
     private boolean noErrorsOnFields(ViewGroup group) {
-        view = group.getChildAt(0);
-        allTextViews = view.getFocusables(0);
+        View view1 = group.getChildAt(0);
+        allTextViews = view1.getFocusables(0);
         for (View view : allTextViews) {
             if (view instanceof TextView) {
                 String error = ((TextView) view).getError() == null ? null : ((TextView) view).getError().toString();

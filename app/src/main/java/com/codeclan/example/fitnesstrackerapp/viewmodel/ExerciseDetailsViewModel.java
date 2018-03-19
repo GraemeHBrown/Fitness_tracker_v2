@@ -1,4 +1,4 @@
-package com.codeclan.example.fitnesstrackerapp.useractivity;
+package com.codeclan.example.fitnesstrackerapp.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;

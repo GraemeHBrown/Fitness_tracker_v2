@@ -17,6 +17,7 @@ import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.activity.ActivityImages;
 import com.codeclan.example.fitnesstrackerapp.activity.ExerciseActivity;
 import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
+import com.codeclan.example.fitnesstrackerapp.viewmodel.ExerciseDetailsViewModel;
 
 import java.text.SimpleDateFormat;
 

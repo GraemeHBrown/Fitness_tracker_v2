@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.codeclan.example.fitnesstrackerapp.R;
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.activity.ActivityImages;
+import com.codeclan.example.fitnesstrackerapp.viewmodel.ExerciseListViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.List;

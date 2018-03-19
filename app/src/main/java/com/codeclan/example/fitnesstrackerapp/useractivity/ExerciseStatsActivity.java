@@ -51,12 +51,13 @@ public class ExerciseStatsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.stats_activity_toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
-
-
+        //TODO look at making allExercise live data
         allExercise = statsViewModel.getAllExerciseForUser();
         exerciseCounts = getExerciseCounts(allExercise);
         layout = findViewById(R.id.activity_count);
         addDataToTable();
+
+        //begin graph setup
         values = getValuesFromCount(exerciseCounts);
         labels = getLabelFromCount(exerciseCounts);
         String[] horizLabels = labels.toArray(new String[0]);
