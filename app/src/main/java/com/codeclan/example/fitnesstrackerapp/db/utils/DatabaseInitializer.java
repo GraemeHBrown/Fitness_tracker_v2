@@ -20,15 +20,20 @@ import java.util.Date;
 public class DatabaseInitializer {
     private static int dbPopulationCount = 0;
     public static void populateAsync(final AppDatabase db) {
+//
+        AsyncTask.execute(() -> {
 
-        PopulateDbAsync task = new PopulateDbAsync(db);
-        task.doInBackground();
+            Log.d("In pop Async:", "run");
+            loadPrepopulatedData(db);
+        });
+//        PopulateDbAsync task = new PopulateDbAsync(db);
+//        task.doInBackground();
     }
 
     public static void populateSync(@NonNull final AppDatabase db) {
         if(dbPopulationCount<1){
             Log.i("In PopSync", "populating");
-            populateWithTestData(db);
+            loadPrepopulatedData(db);
             dbPopulationCount++;
         }
 
@@ -47,7 +52,7 @@ public class DatabaseInitializer {
         }
         exercise.setDescription(description);
         exercise.setDistance(distance);
-        db.userExerciseDao().insertUserExercise(exercise);
+        db.userExerciseModel().insertUserExercise(exercise);
         return exercise;
     }
 
@@ -70,7 +75,7 @@ public class DatabaseInitializer {
         user.setFirstName(name);
         user.setLastName(lastName);
         user.setAge(age);
-        Long rowId = db.userDao().insertUser(user);
+        Long rowId = db.userModel().insertUser(user);
         user.setId(rowId.intValue());
         return user;
     }
@@ -85,11 +90,12 @@ public class DatabaseInitializer {
         return activity;
     }
 
-    private static void populateWithTestData(AppDatabase db) {
-        db.userExerciseDao().deleteAll();
+    public static void loadPrepopulatedData(AppDatabase db) {
+        Log.d("In Load prepop:","inside");
+        db.userExerciseModel().deleteAll();
         db.equipmentModel().deleteAll();
         db.activityModel().deleteAll();
-        db.userDao().deleteAll();
+        db.userModel().deleteAll();
         User user1 = addUser(db, "Lance", "Armstrong", 47);
         Activity roadBiking = addActivity(db, "Cycling", "Road Biking");
         Activity mtnBiking = addActivity(db, "Cycling", "Mtn Biking");
@@ -146,9 +152,10 @@ public class DatabaseInitializer {
 
         @Override
         protected Void doInBackground(final Void... params) {
-            populateWithTestData(mDb);
+            loadPrepopulatedData(mDb);
             return null;
         }
+
 
     }
 

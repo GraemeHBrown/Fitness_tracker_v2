@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
 
+import com.codeclan.example.fitnesstrackerapp.FitnessTrackerApp;
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 
@@ -15,11 +16,10 @@ import java.util.List;
 
 public class ActivityViewModel extends AndroidViewModel {
     public final List<Activity> activities;
-
+//TODO use respository for db operations
     public ActivityViewModel(@NonNull Application application) {
         super(application);
-
-        AppDatabase db = AppDatabase.getInMemoryDatabase(this.getApplication());
+        AppDatabase db = ((FitnessTrackerApp) application).getDatabase();
         activities = db.activityModel().getAll();
     }
 }

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
 
+import com.codeclan.example.fitnesstrackerapp.FitnessTrackerApp;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.user.User;
 import com.codeclan.example.fitnesstrackerapp.useractivity.UserExercise;
@@ -13,19 +14,19 @@ import com.codeclan.example.fitnesstrackerapp.useractivity.UserExercise;
  */
 
 public class AddNewExerciseActivityViewModel extends AndroidViewModel{
-
-    AppDatabase db = AppDatabase.getInMemoryDatabase(this.getApplication());
+    private final AppDatabase db;
 
     public AddNewExerciseActivityViewModel(@NonNull Application application) {
         super(application);
+        db = ((FitnessTrackerApp) application).getDatabase();
 
 
     }
 
     public void doInsertAndSetIds(UserExercise exerciseToAdd){
-        User appUser = db.userDao().getAll().get(0);
+        User appUser = db.userModel().getAll().get(0);
         exerciseToAdd.setUserId(appUser.getId());
-        Long rowId = db.userExerciseDao().insertUserExercise(exerciseToAdd);
+        Long rowId = db.userExerciseModel().insertUserExercise(exerciseToAdd);
         exerciseToAdd.setId(rowId.intValue());
     }
 }

@@ -22,7 +22,7 @@ public abstract class TestDatabase extends RoomDatabase {
     public abstract ActivityDao activityDao();
     public abstract EquipmentDao equipmentDao();
 
-//    public static TestDatabase getInMemoryDatabase(Context context) {
+//    public static TestDatabase getInstance(Context context) {
 //        if (INSTANCE == null) {
 //            INSTANCE =
 //                    Room.inMemoryDatabaseBuilder(context.getApplicationContext(), TestDatabase.class)

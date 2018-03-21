@@ -25,14 +25,14 @@ public class EquipmentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_equipment);
         equipmentTextView = findViewById(R.id.equipment_text_view);
         userDetailsTextView = findViewById(R.id.user_details_text_view);
-        db = AppDatabase.getInMemoryDatabase(getApplicationContext());
-        fetchData();
+//        db = AppDatabase.getInstance(getApplicationContext());
+//        fetchData();
     }
 
     private void fetchData() {
         // Note: this kind of logic should not be in an activity.
         StringBuilder sb = new StringBuilder();
-        User user = db.userDao().findUserById(1);
+        User user = db.userModel().findUserById(1);
         String userDetails = user.getFirstName() + "'s equipment";
         userDetailsTextView.setText(userDetails);
         List<Equipment> equipments = db.equipmentModel().findAllEquipmentForUser(user.getId());

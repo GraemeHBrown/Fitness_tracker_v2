@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +14,6 @@ import android.widget.TextView;
 import com.codeclan.example.fitnesstrackerapp.activity.ExerciseActivity;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.db.utils.DatabaseInitializer;
-import com.codeclan.example.fitnesstrackerapp.user.User;
 import com.codeclan.example.fitnesstrackerapp.useractivity.AddNewExerciseActivity;
 import com.codeclan.example.fitnesstrackerapp.useractivity.ExerciseStatsActivity;
 
@@ -22,7 +22,6 @@ import java.util.Locale;
 //TODO look at putting current user into saved instance?
 public class MainActivity extends AppCompatActivity {
 
-    AppDatabase db;
 
     private TextView welcomeMessage;
 
@@ -37,10 +36,7 @@ public class MainActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         welcomeMessage = findViewById(R.id.welcome_text_view);
 
-        db = AppDatabase.getInMemoryDatabase(getApplicationContext());
-
-        populateDb();
-        fetchData();
+        createWelcomeMessage();
 
     }
 
@@ -91,12 +87,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-    private void populateDb() {
-        DatabaseInitializer.populateSync(db);
-    }
-
-    private void fetchData() {
+    private void createWelcomeMessage() {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format(Locale.UK,
                 "Graeme's Exercise Tracker"));

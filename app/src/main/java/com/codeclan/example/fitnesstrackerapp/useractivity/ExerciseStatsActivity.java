@@ -1,6 +1,7 @@
 package com.codeclan.example.fitnesstrackerapp.useractivity;
 
 import android.annotation.TargetApi;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TableLayout;
@@ -30,6 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 
 public class ExerciseStatsActivity extends AppCompatActivity {
@@ -41,6 +44,7 @@ public class ExerciseStatsActivity extends AppCompatActivity {
     TextView activityCount, activityKey;
     ArrayList<String> labels;
     ArrayList<Long> values;
+    private List<UserExercise> liveExercise;
 
 
     @Override
@@ -51,7 +55,7 @@ public class ExerciseStatsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.stats_activity_toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
-        //TODO look at making allExercise live data
+
         allExercise = statsViewModel.getAllExerciseForUser();
         exerciseCounts = getExerciseCounts(allExercise);
         layout = findViewById(R.id.activity_count);

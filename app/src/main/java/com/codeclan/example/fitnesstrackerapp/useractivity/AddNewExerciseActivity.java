@@ -195,7 +195,6 @@ public class AddNewExerciseActivity extends AppCompatActivity implements Activit
     }
 
     private void setErrorOnPickStartDateAndTime() {
-        //TODO set error message on date and time button.
         Log.d("Date and time error", "setErrorOnPickStartDateAndTime: ");
         Button dateAndTimePick = findViewById(R.id.date_pick_button);
         dateAndTimePick.requestFocus();

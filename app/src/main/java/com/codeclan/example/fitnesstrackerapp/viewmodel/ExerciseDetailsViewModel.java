@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
 
+import com.codeclan.example.fitnesstrackerapp.FitnessTrackerApp;
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
@@ -13,11 +14,11 @@ import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
  */
 
 public class ExerciseDetailsViewModel extends AndroidViewModel {
-
-    AppDatabase db = AppDatabase.getInMemoryDatabase(this.getApplication());
+    private final AppDatabase db;
 
     public ExerciseDetailsViewModel(@NonNull Application application) {
         super(application);
+        db = ((FitnessTrackerApp) application).getDatabase();
 
     }
 

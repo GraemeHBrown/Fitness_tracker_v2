@@ -5,6 +5,7 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
 
 
+import com.codeclan.example.fitnesstrackerapp.FitnessTrackerApp;
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.user.User;
@@ -18,13 +19,14 @@ import java.util.List;
 
 public class ExerciseListViewModel extends AndroidViewModel {
 
+    private final AppDatabase db;
     public final List<UserExercise> allExerciseForUser;
-    AppDatabase db = AppDatabase.getInMemoryDatabase(this.getApplication());
 
     public ExerciseListViewModel(@NonNull Application application) {
         super(application);
-        User appUser = db.userDao().getAll().get(0);
-        allExerciseForUser = db.userExerciseDao().findAllExerciseForUser(appUser.getId());
+        db = ((FitnessTrackerApp) application).getDatabase();
+        User appUser = db.userModel().getAll().get(0);
+        allExerciseForUser = db.userExerciseModel().findAllExerciseForUser(appUser.getId());
     }
 
     public Activity getActivityDetailsForCurrentExercise(int activityId){
