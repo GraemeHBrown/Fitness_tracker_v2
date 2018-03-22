@@ -2,11 +2,13 @@ package com.codeclan.example.fitnesstrackerapp.useractivity;
 
 import android.annotation.TargetApi;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -40,7 +42,7 @@ public class ExerciseStatsActivity extends AppCompatActivity {
     private ExerciseStatsViewModel statsViewModel;
     TableLayout layout;
     TableRow tableRow;
-    Map<String, Long> exerciseCounts;
+    //    Map<String, Long> exerciseCounts;
     TextView activityCount, activityKey;
     ArrayList<String> labels;
     ArrayList<Long> values;
@@ -55,13 +57,28 @@ public class ExerciseStatsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.stats_activity_toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
-
-        allExercise = statsViewModel.getAllExerciseForUser();
-        exerciseCounts = getExerciseCounts(allExercise);
         layout = findViewById(R.id.activity_count);
-        addDataToTable();
 
-        //begin graph setup
+
+        //LiveData
+
+        statsViewModel.getLiveExerciseList().observe(this, new Observer<List<UserExercise>>() {
+            @Override
+            public void onChanged(@Nullable List<UserExercise> userExercises) {
+                if (userExercises != null) {
+                    Log.d("Live List size:", String.valueOf(userExercises.size()));
+//                    allExercise = userExercises;
+                    Map<String, Long> exerciseCounts = getExerciseCounts(userExercises);
+                    Log.d("Exercise count live:", exerciseCounts.toString());
+                    addDataToTable(exerciseCounts);
+                    drawGraph(exerciseCounts);
+                }
+            }
+        });
+
+    }
+
+    private void drawGraph(Map<String, Long> exerciseCounts) {
         values = getValuesFromCount(exerciseCounts);
         labels = getLabelFromCount(exerciseCounts);
         String[] horizLabels = labels.toArray(new String[0]);
@@ -73,7 +90,6 @@ public class ExerciseStatsActivity extends AppCompatActivity {
         for (int i = 0; i < values.size(); i++) {
             DataPoint point = new DataPoint(i, values.get(i));
             series.appendData(point, false, 200, true);
-
         }
 
         series.setSpacing(40);
@@ -89,7 +105,6 @@ public class ExerciseStatsActivity extends AppCompatActivity {
                 return Color.rgb((int) data.getX() * 255 / 4, (int) Math.abs(data.getY() * 255 / 6), 100);
             }
         });
-
     }
 
     private ArrayList<Long> getValuesFromCount(Map<String, Long> exerciseCounts) {
@@ -104,7 +119,7 @@ public class ExerciseStatsActivity extends AppCompatActivity {
         return labels;
     }
 
-    private void addDataToTable() {
+    private void addDataToTable(Map<String, Long> exerciseCounts) {
         for (Map.Entry<String, Long> entry : exerciseCounts.entrySet()) {
             tableRow = new TableRow(this);
             tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT,

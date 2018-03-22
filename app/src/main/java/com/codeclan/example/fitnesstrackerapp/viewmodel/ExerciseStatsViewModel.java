@@ -26,11 +26,16 @@ import java.util.concurrent.ExecutionException;
 public class ExerciseStatsViewModel extends AndroidViewModel {
     private final AppDatabase db;
     private final DataRepository dataRepository;
+    private LiveData<List<UserExercise>> liveExerciseList;
+    private final User appUser;
 
-    public ExerciseStatsViewModel(@NonNull Application application) {
+    public ExerciseStatsViewModel(@NonNull Application application) throws ExecutionException, InterruptedException {
         super(application);
         db = ((FitnessTrackerApp) application).getDatabase();
         dataRepository = ((FitnessTrackerApp) application).getRepository();
+        appUser = dataRepository.getAppUser();
+        //TODO move this to repository
+        liveExerciseList = db.userExerciseModel().findAllExerciseForUserLiveData(appUser.getId());
 
     }
 
@@ -57,4 +62,11 @@ public class ExerciseStatsViewModel extends AndroidViewModel {
     }
 
 
+    public LiveData<List<UserExercise>> getLiveExerciseList() {
+        if (liveExerciseList == null) {
+            //TODO move the call to repository
+            liveExerciseList = db.userExerciseModel().findAllExerciseForUserLiveData(appUser.getId());
+        }
+        return liveExerciseList;
+    }
 }
