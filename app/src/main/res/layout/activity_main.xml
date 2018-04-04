@@ -38,7 +38,6 @@
         app:layout_constraintTop_toBottomOf="@+id/main_activity_toolbar" />
 
 
-
     <GridLayout
         android:id="@+id/gridLayout2"
         android:layout_width="wrap_content"
@@ -53,7 +52,6 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_column="0"
-            android:layout_marginLeft="30dp"
             android:layout_row="0"
             android:padding="10dp"
             app:srcCompat="@drawable/road_bike" />
@@ -90,6 +88,7 @@
             android:layout_marginTop="4dp"
             android:layout_row="1"
             android:onClick="onButtonClick"
+            android:background="@drawable/navigation_button_background"
             android:text="View Activities" />
 
         <Button
@@ -100,11 +99,11 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="4dp"
             android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
             android:layout_row="1"
             android:onClick="onAddNewActivityButtonClick"
+            android:background="@drawable/navigation_button_background"
             android:text="Add new activity" />
 
         <Button
@@ -115,10 +114,11 @@
             android:layout_gravity="center_vertical"
             android:layout_marginBottom="4dp"
             android:layout_marginEnd="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
             android:layout_row="1"
             android:onClick="onViewStatsButtonClick"
+            android:background="@drawable/navigation_button_background"
             android:text="View stats" />
 
     </GridLayout>
