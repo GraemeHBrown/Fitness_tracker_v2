@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.codeclan.example.fitnesstrackerapp.useractivity.ExerciseStatsHomePageActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/stats_home_page_activity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:backgroundTint="@android:color/holo_red_light"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:titleTextColor="@android:color/background_light" />
+
+    <TextView
+        android:id="@+id/stats_options_text_view"
+        style="@android:style/Widget.DeviceDefault.Light.TextView"
+        android:layout_width="382dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="32dp"
+        android:background="@android:color/background_light"
+        android:text="Options for viewing stats"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_red_light"
+        android:textColorLink="@android:color/holo_red_dark"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stats_home_page_activity_toolbar" />
+
+
+    <GridLayout
+        android:id="@+id/gridLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="224dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stats_options_text_view"
+        app:layout_constraintVertical_bias="0.44">
+
+
+        <Button
+            android:id="@+id/view_equipment"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_column="0"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_row="1"
+            android:onClick="onViewDurationButtonClick"
+            android:text="View stats on exercise duration" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_column="1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_row="1"
+            android:onClick="onViewDistanceStatsButtonClick"
+            android:text="View stats on exercise distance" />
+
+    </GridLayout>
+
+
+</android.support.constraint.ConstraintLayout>
+

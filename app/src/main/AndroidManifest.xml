@@ -29,6 +29,12 @@
             android:parentActivityName=".activity.ExerciseActivity" />
         <activity
             android:name=".useractivity.ExerciseStatsActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".useractivity.ExerciseStatsHomePageActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".useractivity.ExerciseStatsDurationActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 

@@ -26,6 +26,12 @@ public interface UserExerciseDao {
     @Query("SELECT * FROM userexercise WHERE user_id = :userId")
     List<UserExercise> findAllExerciseForUser(int userId);
 
+    @Query("SELECT SUM(distance) FROM userexercise WHERE user_id = :userId AND activity_id = :activityId")
+    Double findTotalDistanceForActivityUser(int userId, int activityId);
+
+    @Query("SELECT SUM(duration) FROM userexercise WHERE user_id = :userId AND activity_id = :activityId")
+    Long findTotalDurationForActivityUser(int userId, int activityId);
+
     @Query("SELECT * FROM userexercise INNER JOIN Activity ON userexercise.activity_id = Activity.id WHERE Activity.activity_type LIKE :activityType AND userexercise.user_id = :userId  ")
     List<UserExercise> findAllExerciseForUserByActivity(String activityType, int userId);
 

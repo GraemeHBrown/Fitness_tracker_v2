@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TableLayout;
@@ -29,6 +30,7 @@ import com.jjoe64.graphview.series.DataPoint;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -38,9 +40,10 @@ public class ExerciseStatsActivity extends AppCompatActivity {
     TableLayout layout;
     TableRow tableRow;
     Map<String, Long> exerciseCounts;
-    TextView activityCount, activityKey;
+    Map<String, Double> exerciseDistanceTotals;
+    TextView activityValue, activityKey;
     ArrayList<String> labels;
-    ArrayList<Long> values;
+    ArrayList<Double> values;
 
 
     @Override
@@ -54,12 +57,16 @@ public class ExerciseStatsActivity extends AppCompatActivity {
         //TODO look at making allExercise live data
         allExercise = statsViewModel.getAllExerciseForUser();
         exerciseCounts = getExerciseCounts(allExercise);
+        exerciseDistanceTotals = getExerciseDistanceTotals(allExercise);
         layout = findViewById(R.id.activity_count);
-        addDataToTable();
+//        addDataToTable();
+        addActivityDistanceDataToTable();
 
         //begin graph setup
-        values = getValuesFromCount(exerciseCounts);
-        labels = getLabelFromCount(exerciseCounts);
+//        values = getValuesFromCount(exerciseCounts);
+//        labels = getLabelFromCount(exerciseCounts);
+        values = getValuesForDistance(exerciseDistanceTotals);
+        labels = getLabelsForDistance(exerciseDistanceTotals);
         String[] horizLabels = labels.toArray(new String[0]);
         GraphView graph = (GraphView) findViewById(R.id.graph);
 
@@ -88,6 +95,33 @@ public class ExerciseStatsActivity extends AppCompatActivity {
 
     }
 
+    private Map<String, Double> getExerciseDistanceTotals(List<UserExercise> allExercise) {
+        Map<String, Double> distanceMap = new HashMap<>();
+        for (UserExercise exercise : allExercise) {
+            Activity foundActivity = statsViewModel.getActivityForExercise(exercise.getActivityId());
+            Double totalDistanceForActivity = statsViewModel.getTotalDistanceForExerciseType(exercise.getActivityId());
+            distanceMap.put(foundActivity.getActivityType(), totalDistanceForActivity);
+        }
+
+        for (Map.Entry<String, Double> entry : distanceMap.entrySet()) {
+            Log.d(entry.getKey(), entry.getValue().toString());
+        }
+
+        return distanceMap;
+    }
+
+    private ArrayList<Double> getValuesForDistance(Map<String, Double> exerciseDistanceTotals) {
+        ArrayList<Double> values = new ArrayList<>();
+        values.addAll(exerciseDistanceTotals.values());
+        return values;
+    }
+
+    private ArrayList<String> getLabelsForDistance(Map<String, Double> exerciseDistanceTotals) {
+        ArrayList<String> labels = new ArrayList<>();
+        labels.addAll(exerciseDistanceTotals.keySet());
+        return labels;
+    }
+
     private ArrayList<Long> getValuesFromCount(Map<String, Long> exerciseCounts) {
         ArrayList<Long> values = new ArrayList<>();
         values.addAll(exerciseCounts.values());
@@ -106,13 +140,36 @@ public class ExerciseStatsActivity extends AppCompatActivity {
             tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
             activityKey = new TextView(this);
-            activityCount = new TextView(this);
+            activityValue = new TextView(this);
             activityKey.setText(entry.getKey());
             activityKey.setPadding(0, 0, 30, 10);
             tableRow.addView(activityKey);
-            activityCount.setText(entry.getValue().toString());
-            activityCount.setTextColor(Color.RED);
-            tableRow.addView(activityCount);
+            activityValue.setText(entry.getValue().toString());
+            activityValue.setTextColor(Color.RED);
+            tableRow.addView(activityValue);
+            layout.addView(tableRow, new TableLayout.LayoutParams(
+                    TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+        }
+//
+    }
+
+    private void addActivityDistanceDataToTable() {
+        for (Map.Entry<String, Double> entry : exerciseDistanceTotals.entrySet()) {
+            tableRow = new TableRow(this);
+            tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT,
+                    TableRow.LayoutParams.WRAP_CONTENT));
+            activityKey = new TextView(this);
+            activityValue = new TextView(this);
+            activityKey.setText(entry.getKey());
+            activityKey.setPadding(0, 0, 30, 10);
+            tableRow.addView(activityKey);
+            StringBuilder sb = new StringBuilder();
+            sb.append(String.format(Locale.UK,
+                    "%.2f", entry.getValue()));
+            activityValue.setText(sb);
+//            activityValue.setText(entry.getValue().toString());
+            activityValue.setTextColor(Color.RED);
+            tableRow.addView(activityValue);
             layout.addView(tableRow, new TableLayout.LayoutParams(
                     TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
         }
@@ -136,8 +193,6 @@ public class ExerciseStatsActivity extends AppCompatActivity {
                 typeMap.put(type, 1L);
             }
         }
-
-//        Map<String, Long> typeCount = activityTypes.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
         return typeMap;
     }
@@ -165,6 +220,11 @@ public class ExerciseStatsActivity extends AppCompatActivity {
             case R.id.stats_view_exercise:
                 Intent intentView = new Intent(this, ExerciseActivity.class);
                 startActivity(intentView);
+                return true;
+
+            case R.id.stats_home_page:
+                Intent intentStatsHome = new Intent(this, ExerciseStatsHomePageActivity.class);
+                startActivity(intentStatsHome);
                 return true;
 
             default:

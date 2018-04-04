@@ -16,6 +16,7 @@ import com.codeclan.example.fitnesstrackerapp.db.utils.DatabaseInitializer;
 import com.codeclan.example.fitnesstrackerapp.user.User;
 import com.codeclan.example.fitnesstrackerapp.useractivity.AddNewExerciseActivity;
 import com.codeclan.example.fitnesstrackerapp.useractivity.ExerciseStatsActivity;
+import com.codeclan.example.fitnesstrackerapp.useractivity.ExerciseStatsHomePageActivity;
 
 import java.util.Locale;
 
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onViewStatsButtonClick(View button) {
-        Intent intent = new Intent(this, ExerciseStatsActivity.class);
+        Intent intent = new Intent(this, ExerciseStatsHomePageActivity.class);
         startActivity(intent);
     }
 
