@@ -1,7 +1,6 @@
 package com.codeclan.example.fitnesstrackerapp.useractivity;
 
 import android.annotation.TargetApi;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -12,7 +11,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TableLayout;
@@ -34,19 +32,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 
 public class ExerciseStatsActivity extends AppCompatActivity {
-    private List<UserExercise> allExercise;
     private ExerciseStatsViewModel statsViewModel;
     TableLayout layout;
     TableRow tableRow;
-    //    Map<String, Long> exerciseCounts;
     TextView activityCount, activityKey;
     ArrayList<String> labels;
     ArrayList<Long> values;
-    private List<UserExercise> liveExercise;
 
 
     @Override
@@ -66,10 +60,7 @@ public class ExerciseStatsActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<UserExercise> userExercises) {
                 if (userExercises != null) {
-                    Log.d("Live List size:", String.valueOf(userExercises.size()));
-//                    allExercise = userExercises;
                     Map<String, Long> exerciseCounts = getExerciseCounts(userExercises);
-                    Log.d("Exercise count live:", exerciseCounts.toString());
                     addDataToTable(exerciseCounts);
                     drawGraph(exerciseCounts);
                 }
@@ -156,7 +147,6 @@ public class ExerciseStatsActivity extends AppCompatActivity {
             }
         }
 
-//        Map<String, Long> typeCount = activityTypes.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
         return typeMap;
     }

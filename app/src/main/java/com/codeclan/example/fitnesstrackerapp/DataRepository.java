@@ -1,5 +1,6 @@
 package com.codeclan.example.fitnesstrackerapp;
 
+import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
@@ -34,6 +35,11 @@ public class DataRepository {
             }
         }
         return sInstance;
+    }
+
+    public LiveData<List<UserExercise>> getAllExerciseForUserLiveData(int userId){
+        LiveData<List<UserExercise>> liveExerciseList = mDatabase.userExerciseModel().findAllExerciseForUserLiveData(userId);
+        return  liveExerciseList;
     }
 
     public List<UserExercise> loadAllExerciseForUser() throws ExecutionException, InterruptedException {
