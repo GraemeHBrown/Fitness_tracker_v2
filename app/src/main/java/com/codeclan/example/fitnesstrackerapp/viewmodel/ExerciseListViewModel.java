@@ -2,36 +2,51 @@ package com.codeclan.example.fitnesstrackerapp.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
-
+import com.codeclan.example.fitnesstrackerapp.DataRepository;
 import com.codeclan.example.fitnesstrackerapp.FitnessTrackerApp;
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
-import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
 import com.codeclan.example.fitnesstrackerapp.user.User;
 import com.codeclan.example.fitnesstrackerapp.useractivity.UserExercise;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by graemebrown on 18/03/2018.
  */
 
 public class ExerciseListViewModel extends AndroidViewModel {
+    private final DataRepository dataRepository;
+    private LiveData<List<UserExercise>> liveExerciseList;
+    private final User appUser;
 
-    private final AppDatabase db;
-    public final List<UserExercise> allExerciseForUser;
-
-    public ExerciseListViewModel(@NonNull Application application) {
+    public ExerciseListViewModel(@NonNull Application application) throws ExecutionException, InterruptedException {
         super(application);
-        db = ((FitnessTrackerApp) application).getDatabase();
-        User appUser = db.userModel().getAll().get(0);
-        allExerciseForUser = db.userExerciseModel().findAllExerciseForUser(appUser.getId());
+        dataRepository = ((FitnessTrackerApp) application).getRepository();
+        appUser = dataRepository.getAppUser();
+        liveExerciseList = dataRepository.getAllExerciseForUserLiveData(appUser.getId());
     }
 
-    public Activity getActivityDetailsForCurrentExercise(int activityId){
-        Activity currentActivity = db.activityModel().findByID(activityId);
+    public Activity getActivityDetailsForCurrentExercise(int activityId) {
+        Activity currentActivity = null;
+        try {
+            currentActivity = dataRepository.getActivityDetailsForExercise(activityId);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return currentActivity;
+    }
+
+    public LiveData<List<UserExercise>> getLiveExerciseList() {
+        if (liveExerciseList == null) {
+            liveExerciseList = dataRepository.getAllExerciseForUserLiveData(appUser.getId());
+        }
+        return liveExerciseList;
     }
 
 }

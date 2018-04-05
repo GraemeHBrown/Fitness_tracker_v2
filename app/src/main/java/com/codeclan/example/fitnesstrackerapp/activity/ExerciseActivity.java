@@ -1,8 +1,10 @@
 package com.codeclan.example.fitnesstrackerapp.activity;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,15 +17,14 @@ import com.codeclan.example.fitnesstrackerapp.MainActivity;
 import com.codeclan.example.fitnesstrackerapp.R;
 import com.codeclan.example.fitnesstrackerapp.useractivity.AddNewExerciseActivity;
 import com.codeclan.example.fitnesstrackerapp.useractivity.ExerciseDetailsActivity;
-import com.codeclan.example.fitnesstrackerapp.viewmodel.ExerciseListViewModel;
 import com.codeclan.example.fitnesstrackerapp.useractivity.UserExercise;
 import com.codeclan.example.fitnesstrackerapp.useractivity.UserExerciseListAdapter;
+import com.codeclan.example.fitnesstrackerapp.viewmodel.ExerciseListViewModel;
 
 import java.util.List;
 
 public class ExerciseActivity extends AppCompatActivity {
 
-    List<UserExercise> exerciseForUser;
     private ExerciseListViewModel exerciseListViewModel;
 
     @Override
@@ -32,11 +33,16 @@ public class ExerciseActivity extends AppCompatActivity {
         setContentView(R.layout.exercise_list_view);
 
         exerciseListViewModel = ViewModelProviders.of(this).get(ExerciseListViewModel.class);
-        exerciseForUser = exerciseListViewModel.allExerciseForUser;
 
-        UserExerciseListAdapter exerciseListAdapter = new UserExerciseListAdapter(this, exerciseForUser, exerciseListViewModel);
-        ListView exerciseListView = findViewById(R.id.exercise_list_view);
-        exerciseListView.setAdapter(exerciseListAdapter);
+        exerciseListViewModel.getLiveExerciseList().observe(this, new Observer<List<UserExercise>>() {
+            @Override
+            public void onChanged(@Nullable List<UserExercise> userExercises) {
+                if (userExercises != null) {
+                    setUpListAdapter(userExercises);
+                }
+            }
+        });
+
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.exercise_activity_toolbar);
         setSupportActionBar(myToolbar);
@@ -46,6 +52,12 @@ public class ExerciseActivity extends AppCompatActivity {
 
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void setUpListAdapter(List<UserExercise> userExercises) {
+        UserExerciseListAdapter exerciseListAdapter = new UserExerciseListAdapter(this, userExercises, exerciseListViewModel);
+        ListView exerciseListView = findViewById(R.id.exercise_list_view);
+        exerciseListView.setAdapter(exerciseListAdapter);
     }
 
     @Override
