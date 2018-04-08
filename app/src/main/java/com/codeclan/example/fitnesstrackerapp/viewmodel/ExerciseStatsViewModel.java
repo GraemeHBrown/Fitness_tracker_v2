@@ -31,17 +31,6 @@ public class ExerciseStatsViewModel extends AndroidViewModel {
 
     }
 
-    public List<UserExercise> getAllExerciseForUser() {
-        List<UserExercise> allExercise = null;
-        try {
-            allExercise = dataRepository.loadAllExerciseForUser();
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        return allExercise;
-    }
-
-
     public Activity getActivityForExercise(int activityId) {
         Activity activityForExercise = null;
         try {

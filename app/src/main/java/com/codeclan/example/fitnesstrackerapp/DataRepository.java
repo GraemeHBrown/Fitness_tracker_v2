@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
+import com.codeclan.example.fitnesstrackerapp.equipment.Equipment;
 import com.codeclan.example.fitnesstrackerapp.user.User;
 import com.codeclan.example.fitnesstrackerapp.useractivity.UserExercise;
 
@@ -37,16 +38,9 @@ public class DataRepository {
         return sInstance;
     }
 
-    public LiveData<List<UserExercise>> getAllExerciseForUserLiveData(int userId){
+    public LiveData<List<UserExercise>> getAllExerciseForUserLiveData(int userId) {
         LiveData<List<UserExercise>> liveExerciseList = mDatabase.userExerciseModel().findAllExerciseForUserLiveData(userId);
-        return  liveExerciseList;
-    }
-
-    public List<UserExercise> loadAllExerciseForUser() throws ExecutionException, InterruptedException {
-        AllExerciseQueryAsyncTask task = new AllExerciseQueryAsyncTask(mDatabase);
-        List<UserExercise> loadedExercise = task.execute().get();
-        return loadedExercise;
-
+        return liveExerciseList;
     }
 
     public User getAppUser() throws ExecutionException, InterruptedException {
@@ -61,22 +55,12 @@ public class DataRepository {
         return loadedActivity;
     }
 
-    private static class AllExerciseQueryAsyncTask extends AsyncTask<Void, Void, List<UserExercise>> {
-
-        private final AppDatabase mDatabase;
-
-        AllExerciseQueryAsyncTask(AppDatabase mDatabase) {
-            this.mDatabase = mDatabase;
-        }
-
-        @Override
-        protected List<UserExercise> doInBackground(final Void... params) {
-            User appUser = mDatabase.userModel().getAll().get(0);
-            List<UserExercise> exerciseForUser = mDatabase.userExerciseModel().findAllExerciseForUser(appUser.getId());
-            return exerciseForUser;
-        }
-
+    public Equipment getEquipmentDetailsForExercise(Integer equipmentId) throws ExecutionException, InterruptedException {
+        EquipmentForExerciseAsyncTask task = new EquipmentForExerciseAsyncTask(equipmentId, mDatabase);
+        Equipment foundEquiment = task.execute().get();
+        return foundEquiment;
     }
+
 
     private static class ActivityForExerciseAsyncTask extends AsyncTask<Void, Void, Activity> {
 
@@ -106,6 +90,24 @@ public class DataRepository {
         protected User doInBackground(Void... params) {
             User appUser = mDatabase.userModel().getAll().get(0);
             return appUser;
+        }
+    }
+
+    private static class EquipmentForExerciseAsyncTask extends AsyncTask<Void, Void, Equipment> {
+
+        private final Integer equipmentId;
+        private final AppDatabase mDatabase;
+
+        public EquipmentForExerciseAsyncTask(Integer equipmentId, AppDatabase mDatabase) {
+            this.equipmentId = equipmentId;
+            this.mDatabase = mDatabase;
+
+        }
+
+        @Override
+        protected Equipment doInBackground(Void... voids) {
+            Equipment foundEquipment = mDatabase.equipmentModel().findByID(equipmentId);
+            return foundEquipment;
         }
     }
 }
