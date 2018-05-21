@@ -1,8 +1,10 @@
 package com.codeclan.example.fitnesstrackerapp.useractivity;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,28 +42,38 @@ public class EquipmentSelectFragment extends Fragment implements AdapterView.OnI
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_equipment_select, container, false);
         Spinner spinner = view.findViewById(R.id.equipment_select_spinner);
         spinner.setOnItemSelectedListener(this);
-        List<Equipment> equipment = fetchEquipment();
 
-        ArrayAdapter<Equipment> equipmentAdapter = new ArrayAdapter<Equipment>(getContext(), R.layout.support_simple_spinner_dropdown_item, equipment);
+        userEquipModel.getLiveUserEquipment().observe(this, new Observer<List<Equipment>>() {
+            @Override
+            public void onChanged(@Nullable List<Equipment> equipmentList) {
+                if (equipmentList != null) {
+                    List<Equipment> listWithNoEquipmentOption = addNoEquipmentOptionToList(equipmentList);
+                    ArrayAdapter<Equipment> equipmentAdapter = setUpEquipmentAdapter(listWithNoEquipmentOption);
+                    spinner.setAdapter(equipmentAdapter);
+                    int position = equipmentAdapter.getPosition(noEquipmentOption);
+                    spinner.setSelection(position);
+                }
+            }
+        });
 
-        equipmentAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spinner.setAdapter(equipmentAdapter);
-        int position = equipmentAdapter.getPosition(noEquipmentOption);
-        Log.d("Position of default", String.valueOf(position));
-        spinner.setSelection(position);
         return view;
     }
 
-    private List<Equipment> fetchEquipment() {
+    private ArrayAdapter<Equipment> setUpEquipmentAdapter(List<Equipment> listWithNoEquipmentOption) {
+        ArrayAdapter<Equipment> equipmentAdapter = new ArrayAdapter<Equipment>(getContext(), R.layout.support_simple_spinner_dropdown_item, listWithNoEquipmentOption);
+        equipmentAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        return equipmentAdapter;
+    }
+
+    private List<Equipment> addNoEquipmentOptionToList(List<Equipment> equipmentList) {
         noEquipmentOption = new Equipment();
         noEquipmentOption.setEquipmentModel("No equipment");
-        List<Equipment> equipForUser = userEquipModel.userEquipment;
-        equipForUser.add(noEquipmentOption);
-        return equipForUser;
+        equipmentList.add(noEquipmentOption);
+
+        return equipmentList;
     }
 
 

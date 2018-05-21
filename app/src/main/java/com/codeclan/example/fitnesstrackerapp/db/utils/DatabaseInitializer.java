@@ -19,6 +19,7 @@ import java.util.Date;
 
 public class DatabaseInitializer {
     private static int dbPopulationCount = 0;
+
     public static void populateAsync(final AppDatabase db) {
 //
         AsyncTask.execute(() -> {
@@ -26,16 +27,6 @@ public class DatabaseInitializer {
             Log.d("In pop Async:", "run");
             loadPrepopulatedData(db);
         });
-//        PopulateDbAsync task = new PopulateDbAsync(db);
-//        task.doInBackground();
-    }
-
-    public static void populateSync(@NonNull final AppDatabase db) {
-        if(dbPopulationCount<1){
-            Log.i("In PopSync", "populating");
-            loadPrepopulatedData(db);
-            dbPopulationCount++;
-        }
 
     }
 
@@ -91,7 +82,7 @@ public class DatabaseInitializer {
     }
 
     public static void loadPrepopulatedData(AppDatabase db) {
-        Log.d("In Load prepop:","inside");
+        Log.d("In Load prepop:", "inside");
         db.userExerciseModel().deleteAll();
         db.equipmentModel().deleteAll();
         db.activityModel().deleteAll();
@@ -113,9 +104,7 @@ public class DatabaseInitializer {
         Date yesterday = getTodayPlusDays(-1);
         Date twoDaysAgo = getTodayPlusDays(-2);
         Date twoWeeksAgo = getTodayPlusDays(-14);
-//        Log.d("start time:", String.valueOf(startTime));
         Date startTimePlusMins = getDatePlusMinutes(60);
-//        Log.d("start time plus:", String.valueOf(startTimePlusMins));
 
         addUserExercise(db, user1, roadBiking, oneWeekAgo, 120L, equipment1, "This is an exercise...", 45.0);
         addUserExercise(db, user1, roadRunning, threeWeeksAgo, 40L, null, "This is a road run...", 10.3);
@@ -139,24 +128,6 @@ public class DatabaseInitializer {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, daysAgo);
         return calendar.getTime();
-    }
-
-
-    private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
-
-        private final AppDatabase mDb;
-
-        PopulateDbAsync(AppDatabase db) {
-            mDb = db;
-        }
-
-        @Override
-        protected Void doInBackground(final Void... params) {
-            loadPrepopulatedData(mDb);
-            return null;
-        }
-
-
     }
 
 }

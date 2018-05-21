@@ -2,11 +2,14 @@ package com.codeclan.example.fitnesstrackerapp.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
+import com.codeclan.example.fitnesstrackerapp.DataRepository;
 import com.codeclan.example.fitnesstrackerapp.FitnessTrackerApp;
 import com.codeclan.example.fitnesstrackerapp.activity.Activity;
 import com.codeclan.example.fitnesstrackerapp.db.AppDatabase;
+import com.codeclan.example.fitnesstrackerapp.useractivity.UserExercise;
 
 import java.util.List;
 
@@ -15,11 +18,18 @@ import java.util.List;
  */
 
 public class ActivityViewModel extends AndroidViewModel {
-    public final List<Activity> activities;
-//TODO use respository for db operations
+    private final DataRepository dataRepository;
+    private LiveData<List<Activity>> liveActivityList;
+
     public ActivityViewModel(@NonNull Application application) {
         super(application);
-        AppDatabase db = ((FitnessTrackerApp) application).getDatabase();
-        activities = db.activityModel().getAll();
+        dataRepository = ((FitnessTrackerApp) application).getRepository();
+    }
+
+    public LiveData<List<Activity>> getLiveActivityList() {
+        if (liveActivityList == null) {
+            liveActivityList = dataRepository.getActivityListLiveData();
+        }
+        return liveActivityList;
     }
 }

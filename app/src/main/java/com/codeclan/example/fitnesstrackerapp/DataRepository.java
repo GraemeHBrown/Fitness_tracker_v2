@@ -38,14 +38,27 @@ public class DataRepository {
         return sInstance;
     }
 
+    public Long insertUserExercise(UserExercise exerciseToAdd) throws ExecutionException, InterruptedException {
+        InsertUserExerciseAsyncTask task = new InsertUserExerciseAsyncTask(exerciseToAdd, mDatabase);
+        Long rowId = task.execute().get();
+        return rowId;
+    }
+
     public LiveData<List<UserExercise>> getAllExerciseForUserLiveData(int userId) {
         LiveData<List<UserExercise>> liveExerciseList = mDatabase.userExerciseModel().findAllExerciseForUserLiveData(userId);
         return liveExerciseList;
     }
 
-    public User getAppUser() throws ExecutionException, InterruptedException {
+    public User getAppUser() {
         AppUserAsyncTask task = new AppUserAsyncTask(mDatabase);
-        User appUser = task.execute().get();
+        User appUser = null;
+        try {
+            appUser = task.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         return appUser;
     }
 
@@ -59,6 +72,16 @@ public class DataRepository {
         EquipmentForExerciseAsyncTask task = new EquipmentForExerciseAsyncTask(equipmentId, mDatabase);
         Equipment foundEquiment = task.execute().get();
         return foundEquiment;
+    }
+
+    public LiveData<List<Activity>> getActivityListLiveData() {
+        LiveData<List<Activity>> liveActivityList = mDatabase.activityModel().getAllActivitiesLiveData();
+        return liveActivityList;
+    }
+
+    public LiveData<List<Equipment>> getUserEquipmentLiveData(User appUser) {
+        LiveData<List<Equipment>> liveUserEquipmentList = mDatabase.equipmentModel().findAllEquipmentForUserLiveData(appUser.getId());
+        return liveUserEquipmentList;
     }
 
 
@@ -82,7 +105,7 @@ public class DataRepository {
     private static class AppUserAsyncTask extends AsyncTask<Void, Void, User> {
         private final AppDatabase mDatabase;
 
-        public AppUserAsyncTask(AppDatabase mDatabase) {
+        AppUserAsyncTask(AppDatabase mDatabase) {
             this.mDatabase = mDatabase;
         }
 
@@ -98,7 +121,7 @@ public class DataRepository {
         private final Integer equipmentId;
         private final AppDatabase mDatabase;
 
-        public EquipmentForExerciseAsyncTask(Integer equipmentId, AppDatabase mDatabase) {
+        EquipmentForExerciseAsyncTask(Integer equipmentId, AppDatabase mDatabase) {
             this.equipmentId = equipmentId;
             this.mDatabase = mDatabase;
 
@@ -109,5 +132,22 @@ public class DataRepository {
             Equipment foundEquipment = mDatabase.equipmentModel().findByID(equipmentId);
             return foundEquipment;
         }
+    }
+
+    private static class InsertUserExerciseAsyncTask extends AsyncTask<Void, Void, Long> {
+        private final AppDatabase mDatabase;
+        private final UserExercise exerciseToAdd;
+
+        InsertUserExerciseAsyncTask(UserExercise exerciseToAdd, AppDatabase mDatabase){
+            this.exerciseToAdd = exerciseToAdd;
+            this.mDatabase = mDatabase;
+        }
+
+        @Override
+        protected Long doInBackground(Void... voids) {
+            Long rowID = mDatabase.userExerciseModel().insertUserExercise(exerciseToAdd);
+            return rowID;
+        }
+
     }
 }

@@ -10,13 +10,11 @@ import com.codeclan.example.fitnesstrackerapp.db.utils.DatabaseInitializer;
  */
 
 public class FitnessTrackerApp extends Application {
-    private AppExecutors mAppExecutors;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        mAppExecutors = new AppExecutors();
         DatabaseInitializer.populateAsync(getDatabase());
     }
 

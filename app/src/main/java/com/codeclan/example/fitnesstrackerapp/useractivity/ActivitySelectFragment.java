@@ -1,8 +1,10 @@
 package com.codeclan.example.fitnesstrackerapp.useractivity;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,12 +43,25 @@ public class ActivitySelectFragment extends Fragment implements AdapterView.OnIt
         View view = inflater.inflate(R.layout.fragment_activity_select, container, false);
         Spinner spinner = view.findViewById(R.id.activity_select_spinner);
         spinner.setOnItemSelectedListener(this);
-        List<Activity> activities = fetchActivityData();
-        ArrayAdapter<Activity> activityAdapter = new ArrayAdapter<Activity>(getContext(), R.layout.support_simple_spinner_dropdown_item, activities);
-        activityAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spinner.setAdapter(activityAdapter);
+        activityViewModel.getLiveActivityList().observe(this, new Observer<List<Activity>>() {
+            @Override
+            public void onChanged(@Nullable List<Activity> activityList) {
+                if (activityList != null) {
+                    ArrayAdapter<Activity> activityAdapter = setUpActivityAdapter(activityList);
+                    activityAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                    spinner.setAdapter(activityAdapter);
+
+                }
+            }
+        });
 
         return view;
+    }
+
+    private ArrayAdapter<Activity> setUpActivityAdapter(List<Activity> activityList) {
+        ArrayAdapter<Activity> activityAdapter = new ArrayAdapter<Activity>(getContext(), R.layout.support_simple_spinner_dropdown_item, activityList);
+        activityAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        return activityAdapter;
     }
 
 
@@ -65,10 +80,6 @@ public class ActivitySelectFragment extends Fragment implements AdapterView.OnIt
     public void onDetach() {
         super.onDetach();
         activitySelectedListener = null;
-    }
-
-    private List<Activity> fetchActivityData() {
-        return activityViewModel.activities;
     }
 
     @Override

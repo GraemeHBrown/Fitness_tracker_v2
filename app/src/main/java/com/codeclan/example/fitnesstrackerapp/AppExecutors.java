@@ -11,6 +11,10 @@ import java.util.concurrent.Executors;
  * Created by graemebrown on 20/03/2018.
  */
 
+
+/*Note this isn't being used by the app at the moment.
+ May for the basis of subsequent threading so left in as model.'*/
+
 public class AppExecutors {
 
     private final Executor mDiskIO;

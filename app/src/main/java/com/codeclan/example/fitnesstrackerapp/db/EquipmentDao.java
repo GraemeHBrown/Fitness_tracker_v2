@@ -25,6 +25,9 @@ public interface EquipmentDao {
     @Query("SELECT * FROM equipment WHERE user_id = :userId")
     List<Equipment> findAllEquipmentForUser(int userId);
 
+    @Query("SELECT * FROM equipment WHERE user_id = :userId")
+    LiveData<List<Equipment>> findAllEquipmentForUserLiveData(int userId);
+
     @Query("SELECT * FROM equipment WHERE equipment_type = :equipmentType AND user_id = :userId")
     List<Equipment> findAllUserEquipmentByType(String equipmentType, int userId);
 
@@ -42,4 +45,6 @@ public interface EquipmentDao {
 
     @Query("SELECT * FROM equipment WHERE id = :equipmentId")
     Equipment findByID(int equipmentId);
+
+
 }
